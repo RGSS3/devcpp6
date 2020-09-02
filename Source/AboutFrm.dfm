@@ -1,6 +1,6 @@
 object AboutForm: TAboutForm
-  Left = 633
-  Top = 509
+  Left = 745
+  Top = 285
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'About Dev-C++ :-)'
@@ -12208,6 +12208,7 @@ object AboutForm: TAboutForm
       Top = 16
       Width = 385
       Height = 95
+      ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       Lines.Strings = (
         'GNU GENERAL PUBLIC LICENSE'
         ''

@@ -171,13 +171,16 @@ begin
   cmbIcons.ItemIndex := 0; // new look
 
   // Editor colors
-  cmbColors.ItemIndex := 1; // Classic Plus
+  cmbColors.ItemIndex := 0; // Classic Plus
   dmMain.InitHighlighterFirstTime(cmbColors.ItemIndex);
   devEditor.AssignEditor(synExample, 'main.cpp');
 
   // Font options
   cmbFont.Items.Assign(Screen.Fonts);
-  FontIndex := cmbFont.Items.IndexOf('Consolas');
+  // Fontname
+  FontIndex := cmbFont.Items.IndexOf('DejaVuSansMono YaHei NF');
+  if FontIndex = -1 then
+    FontIndex := cmbFont.Items.IndexOf('Consolas');
   if FontIndex = -1 then
     FontIndex := cmbFont.Items.IndexOf('Courier New');
   if FontIndex = -1 then
@@ -192,7 +195,6 @@ end;
 procedure TLangForm.ColorChange(Sender: TObject);
 begin
   dmMain.InitHighlighterFirstTime(cmbColors.ItemIndex);
-
   // Pick a proper current line color (choice is up for debate...)
   if cmbColors.Text = 'Obsidian' then
     devEditor.HighColor := clBlack
@@ -209,8 +211,7 @@ begin
   else if cmbColors.Text = 'PlasticCodeWrap' then
     devEditor.HighColor := clBlack
   else
-    devEditor.HighColor := $FFFFCC; // Light Turquoise
-
+    devEditor.HighColor := $FFCC66; // Light Turquoise
   devEditor.AssignEditor(synExample, 'main.cpp');
 end;
 

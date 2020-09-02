@@ -1,6 +1,6 @@
 object MainForm: TMainForm
-  Left = 243
-  Top = 504
+  Left = 460
+  Top = 128
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
   AutoScroll = False
@@ -47,7 +47,7 @@ object MainForm: TMainForm
     Top = 477
     Width = 999
     Height = 183
-    ActivePage = DebugSheet
+    ActivePage = FindSheet
     Align = alBottom
     Images = dmMain.MenuImages_NewLook
     MultiLine = True
@@ -149,7 +149,7 @@ object MainForm: TMainForm
         Left = 0
         Top = 0
         Width = 156
-        Height = 154
+        Height = 155
         Align = alLeft
         BevelOuter = bvNone
         TabOrder = 0
@@ -201,6 +201,7 @@ object MainForm: TMainForm
           Font.Height = -13
           Font.Name = 'Courier New'
           Font.Style = []
+          ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
           ParentFont = False
           ReadOnly = True
           ScrollBars = ssBoth
@@ -213,6 +214,7 @@ object MainForm: TMainForm
     object DebugSheet: TTabSheet
       Caption = 'Debugging'
       ImageIndex = 32
+      TabVisible = False
       object DebugSendPanel: TPanel
         Left = 589
         Top = 0
@@ -237,7 +239,8 @@ object MainForm: TMainForm
           Width = 262
           Height = 21
           Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
+          ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+          ItemHeight = 0
           TabOrder = 0
           OnKeyPress = edGdbCommandKeyPress
         end
@@ -247,6 +250,7 @@ object MainForm: TMainForm
           Width = 395
           Height = 118
           Anchors = [akLeft, akTop, akRight, akBottom]
+          ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
           ReadOnly = True
           ScrollBars = ssVertical
           TabOrder = 1
@@ -402,7 +406,8 @@ object MainForm: TMainForm
           Width = 518
           Height = 21
           Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
+          ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
+          ItemHeight = 0
           TabOrder = 5
           OnKeyPress = EvaluateInputKeyPress
         end
@@ -412,6 +417,7 @@ object MainForm: TMainForm
           Width = 578
           Height = 47
           Anchors = [akLeft, akTop, akRight, akBottom]
+          ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
           ReadOnly = True
           ScrollBars = ssBoth
           TabOrder = 6
@@ -613,13 +619,8 @@ object MainForm: TMainForm
         ImageIndex = 33
         Style = tbsSeparator
       end
-      object DebugBtn: TToolButton
-        Left = 100
-        Top = 0
-        Action = actDebug
-      end
       object ToolButton3: TToolButton
-        Left = 123
+        Left = 100
         Top = 0
         Width = 8
         Caption = 'ToolButton3'
@@ -627,12 +628,12 @@ object MainForm: TMainForm
         Style = tbsSeparator
       end
       object StopBtn: TToolButton
-        Left = 131
+        Left = 108
         Top = 0
         Action = actStopExecute
       end
       object ToolButton5: TToolButton
-        Left = 154
+        Left = 131
         Top = 0
         Width = 8
         Caption = 'ToolButton5'
@@ -640,12 +641,12 @@ object MainForm: TMainForm
         Style = tbsSeparator
       end
       object ProfileBtn: TToolButton
-        Left = 162
+        Left = 139
         Top = 0
         Action = actProfile
       end
       object ProfilingInforBtn: TToolButton
-        Left = 185
+        Left = 162
         Top = 0
         Action = actDeleteProfile
       end
@@ -816,6 +817,7 @@ object MainForm: TMainForm
         Font.Height = -11
         Font.Name = 'Courier New'
         Font.Style = []
+        ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 14
         ItemIndex = 0
         ParentCtl3D = False
@@ -841,6 +843,7 @@ object MainForm: TMainForm
         Font.Height = -11
         Font.Name = 'Courier New'
         Font.Style = []
+        ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 14
         ParentCtl3D = False
         ParentFont = False
@@ -875,6 +878,7 @@ object MainForm: TMainForm
         Font.Height = -11
         Font.Name = 'Courier New'
         Font.Style = []
+        ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 14
         ParentCtl3D = False
         ParentFont = False
@@ -914,7 +918,7 @@ object MainForm: TMainForm
     Top = 56
     Width = 193
     Height = 418
-    ActivePage = LeftProjectSheet
+    ActivePage = LeftClassSheet
     Align = alLeft
     Images = dmMain.ProjectImage_NewLook
     TabOrder = 1
@@ -993,6 +997,7 @@ object MainForm: TMainForm
     object LeftDebugSheet: TTabSheet
       Caption = 'Debug'
       ImageIndex = -1
+      TabVisible = False
       object DebugView: TTreeView
         Left = 0
         Top = 0
@@ -1010,6 +1015,7 @@ object MainForm: TMainForm
         ReadOnly = True
         RightClickSelect = True
         TabOrder = 0
+        Visible = False
         OnAdvancedCustomDrawItem = DebugViewAdvancedCustomDrawItem
         OnKeyDown = DebugViewKeyDown
       end
@@ -1469,6 +1475,29 @@ object MainForm: TMainForm
         Action = actProjectOptions
       end
     end
+    object System1: TMenuItem
+      AutoHotkeys = maManual
+      AutoLineReduction = maManual
+      Caption = 'actSystem'
+      object Opendirectorywithcmd1: TMenuItem
+        Action = actOpenCmd
+      end
+      object Opendirectorywithbash1: TMenuItem
+        Action = actOpenBash
+      end
+      object Opendirectorywithexplorer1: TMenuItem
+        Action = actOpenExplorer
+      end
+      object N12: TMenuItem
+        Caption = '-'
+      end
+      object Refresh1: TMenuItem
+        Action = actRefresh
+      end
+      object N47: TMenuItem
+        Caption = '-'
+      end
+    end
     object ExecuteMenu: TMenuItem
       Caption = 'E&xecute'
       OnClick = actFileMenuExecute
@@ -1523,19 +1552,6 @@ object MainForm: TMainForm
         Action = actDeleteProfile
       end
       object N25: TMenuItem
-        Caption = '-'
-      end
-      object Abortcompilation2: TMenuItem
-        Action = actGotoBreakPoint
-        ShortCut = 113
-      end
-      object oggleBreakpoint1: TMenuItem
-        Action = actBreakPoint
-      end
-      object Abortcompilation1: TMenuItem
-        Action = actDebug
-      end
-      object N12: TMenuItem
         Caption = '-'
       end
       object Programreset1: TMenuItem
@@ -1714,12 +1730,6 @@ object MainForm: TMainForm
     object N41: TMenuItem
       Caption = '-'
     end
-    object ToggleBreakpointPopupItem: TMenuItem
-      Action = actBreakPoint
-    end
-    object AddWatchPopupItem: TMenuItem
-      Action = actAddWatch
-    end
     object N38: TMenuItem
       Caption = '-'
     end
@@ -1800,7 +1810,7 @@ object MainForm: TMainForm
   object ActionList: TActionList
     Images = dmMain.MenuImages_NewLook
     Left = 624
-    Top = 164
+    Top = 168
     object actViewCPU: TAction
       Category = 'Debug'
       Caption = '&View CPU window'
@@ -2799,6 +2809,33 @@ object MainForm: TMainForm
       Caption = 'Donate :)'
       ImageIndex = 41
       OnExecute = actDonateExecute
+    end
+    object actSystem: TAction
+      Category = 'System'
+      Caption = 'actSystem'
+    end
+    object actOpenCmd: TAction
+      Category = 'System'
+      Caption = 'actOpenCmd'
+      ImageIndex = 38
+      OnExecute = actOpenCmdExecute
+    end
+    object actOpenBash: TAction
+      Category = 'System'
+      Caption = 'actOpenBash'
+      ImageIndex = 38
+      OnExecute = actOpenBashExecute
+    end
+    object actOpenExplorer: TAction
+      Category = 'System'
+      Caption = 'actOpenExplorer'
+      ImageIndex = 4
+      OnExecute = actOpenExplorerExecute
+    end
+    object actRefresh: TAction
+      Category = 'System'
+      Caption = 'actRefresh'
+      OnExecute = actRefreshExecute
     end
   end
   object MessagePopup: TPopupMenu

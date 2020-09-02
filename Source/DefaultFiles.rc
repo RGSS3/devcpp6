@@ -32,6 +32,29 @@ STRINGTABLE
 {
 /* Classic */
  1, "clBlue, clNone, 0, 0, 0"
+ 2, "$000000cc, clNone, 0, 0, 0"
+ 3, "$000099ff, clNone, 0, 0, 0"
+ 4, "$00ff0000, clNone, 0, 0, 0"
+ 5, "$00002255, clNone, 0, 0, 0"
+ 6, "$00666666, clNone, 0, 0, 0"
+ 7, "$00333333, clNone, 0, 0, 0"
+ 8, "$00ff6600, clNone, 0, 0, 0"
+ 9, "$00990099, clNone, 0, 0, 0"
+ 10, "clRed, clNone, 0, 0, 0"
+ 11, "$00ff0000, clNone, 0, 0, 0"
+ 12, "clBlack, clWhite, 0, 0, 0"
+ 13, "$000033ff, clNone, 0, 0, 0"
+ 14, "$00002255, clNone, 0, 0, 0"
+ 15, "$00333333, $00d8d8d8, 0, 0, 0"
+ 16, "clWhite, clMaroon, 0, 0, 0"
+ 17, "clWhite, clRed"
+ 18, "clWhite, clMaroon"
+ 19, "clWhite, clBlue"
+ 20, "clBlack, $eeeece, 1, 0, 0"
+ 21, "$00333333, $00d8d8d8"
+ 22, "clBlack, clBtnFace"
+/*
+ 1, "clBlue, clNone, 0, 0, 0"
  2, "clBlack, clNone, 0, 0, 0"
  3, "clHighlight, clNone, 0, 1, 0"
  4, "clPurple, clNone, 0, 0, 0"
@@ -53,6 +76,7 @@ STRINGTABLE
  20, "clBlack, clBtnFace"
  21, "clWhite, clNavy"
  22, "clBlack, clBtnFace"
+*/
 
 /* Classic Plus */
  1001, "clBlue, clNone, 0, 0, 0"

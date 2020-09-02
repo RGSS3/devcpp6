@@ -32,7 +32,7 @@ const
 
   // exe properties
   DEVCPP = 'Dev-C++';
-  DEVCPP_VERSION = '5.12';
+  DEVCPP_VERSION = '6.0u';
 
   // delimiters
   DEV_INTERNAL_OPEN = '$__DEV_INTERNAL_OPEN';
@@ -96,6 +96,7 @@ const
   WINDRES_PROGRAM = 'windres.exe';
   GPROF_PROGRAM = 'gprof.exe';
   PACKMAN_PROGRAM = 'packman.exe';
+  BUSYBOX_PROGRAM = 'busybox.exe';
   CLEAN_PROGRAM = 'rm.exe'; // cannot use del, it doesn't have a quiet mode
 
   // File dialog filters
