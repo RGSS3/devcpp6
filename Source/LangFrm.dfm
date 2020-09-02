@@ -86,6 +86,7 @@ object LangForm: TLangForm
         Top = 20
         Width = 250
         Height = 181
+        ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 15
         TabOrder = 0
       end
@@ -215,6 +216,7 @@ object LangForm: TLangForm
         Width = 201
         Height = 23
         Style = csDropDownList
+        ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 15
         TabOrder = 0
         OnChange = cmbIconsChange
@@ -225,6 +227,7 @@ object LangForm: TLangForm
         Width = 201
         Height = 23
         Style = csDropDownList
+        ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 15
         TabOrder = 1
         OnChange = ColorChange
@@ -247,6 +250,7 @@ object LangForm: TLangForm
         Height = 36
         AutoComplete = False
         Style = csOwnerDrawVariable
+        ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 30
         Sorted = True
         TabOrder = 2

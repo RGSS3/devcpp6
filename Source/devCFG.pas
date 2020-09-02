@@ -306,6 +306,8 @@ type
     procedure SaveSettings;
     procedure LoadSettings;
 
+    function readFile(const path : AnsiString) : AnsiString;
+
     // don't bother to remember, read on startup
     property OriginalPath: AnsiString read fOldPath write fOldPath;
     property Exec: AnsiString read fExec write fExec;
@@ -986,6 +988,7 @@ begin
   // Floating windows
   fMessageFloat := false;
   fProjectFloat := false;
+
 end;
 
 { TWindowState }
@@ -1263,17 +1266,21 @@ begin
 end;
 
 procedure TdevCompilerSet.SetUserInput;
+var
+  dirs : TDevDirs;
 begin
   // User input
-  fCompAdd := FALSE;
+  fCompAdd := TRUE;
   fLinkAdd := TRUE;
-  fCompOpt := '';
-
+  dirs := TDevDirs.Create;
+  fCompOpt := dirs.readFile('Photogram/CFLAGS.txt');
+  fLinkOpt := dirs.readFile('Photogram/LDFLAGS.txt');
+  dirs.Destroy;
   // MinGW32 requires special treatment
   if ContainsStr(fName, 'MinGW') then
-    fLinkOpt := '-static-libstdc++ -static-libgcc'
+    fLinkOpt := fLinkOpt + ' -static-libstdc++ -static-libgcc'
   else
-    fLinkOpt := '-static-libgcc';
+    fLinkOpt := fLinkOpt + ' -static-libgcc'
 end;
 
 procedure TdevCompilerSet.SetOptions;
@@ -1694,9 +1701,9 @@ begin
   if not FindFile(fBinDir, fgppName) then begin
     msg := msg + Format(Lang[ID_COMPVALID_BINNOTFOUND], [Lang[ID_COMPVALID_CPPCOMP], fgppName]) + #13#10;
   end;
-  if not FindFile(fBinDir, fgdbName) then begin
+  {*if not FindFile(fBinDir, fgdbName) then begin
     msg := msg + Format(Lang[ID_COMPVALID_BINNOTFOUND], [Lang[ID_COMPVALID_DEBUGGER], fgdbName]) + #13#10;
-  end;
+  end;*}
   if not FindFile(fBinDir, fgprofName) then begin
     msg := msg + Format(Lang[ID_COMPVALID_BINNOTFOUND], [Lang[ID_COMPVALID_PROFILER], fgprofName]) + #13#10;
   end;
@@ -2201,6 +2208,16 @@ begin
   LoadSettings;
 end;
 
+function TdevDirs.readFile(const path : AnsiString) : AnsiString;
+var
+  strList : TStringList;
+begin
+  strList := TStringList.Create;
+  strList.LoadFromFile(fExec + '\' + path);
+  readFile := strList.Text;
+  strList.Destroy;
+end;
+
 procedure TdevDirs.SettoDefaults;
 var
   DocumentsPath: array[0..MAX_PATH] of Char;
@@ -2321,12 +2338,13 @@ begin
   fUseSyn := TRUE;
   fSynExt := 'c;cpp;h;hpp;cc;cxx;cp;hp;rh;fx;inl;tcc;win;;'; //last ; is for files with no extension
   fHighCurrLine := TRUE;
-  fHighColor := $FFFFCC; // Light Turquoise
+  fHighColor := $00FFCC66; // Light Turquoise
   fTabSize := 4;
 
   // Display
-  fFont.name := 'Consolas';
-  fFont.Size := 10;
+  // Fontname
+  fFont.name := 'DejaVuSansMono YaHei NF';
+  fFont.Size := 12;
 
   // Display #2
   fShowGutter := TRUE;
@@ -2335,8 +2353,9 @@ begin
   fLineNumbers := TRUE;
   fFirstisZero := FALSE;
   fLeadZero := FALSE;
-  fGutterFont.Name := 'Consolas';
-  fGutterFont.Size := 10;
+  // Fontname
+  fGutterFont.Name := 'DejaVuSansMono YaHei NF';
+  fGutterFont.Size := 12;
   fGutterSize := 1;
 
   // Autosave
@@ -2346,15 +2365,15 @@ begin
   fAutoSaveMode := 0;
 
   // Symbol completion
-  fCompleteSymbols := TRUE;
-  fBraceComplete := TRUE;
-  fParentheseComplete := TRUE;
-  fIncludeComplete := TRUE;
-  fArrayComplete := TRUE;
+  fCompleteSymbols := FALSE;
+  fBraceComplete := FALSE;
+  fParentheseComplete := FALSE;
+  fIncludeComplete := FALSE;
+  fArrayComplete := FALSE;
   fCommentComplete := FALSE;
-  fSingleQuoteComplete := TRUE;
-  fDoubleQuoteComplete := TRUE;
-  fDeleteSymbolPairs := TRUE;
+  fSingleQuoteComplete := FALSE;
+  fDoubleQuoteComplete := FALSE;
+  fDeleteSymbolPairs := FALSE;
 end;
 
 procedure TdevEditor.AssignEditor(editor: TSynEdit; const FileName: AnsiString);

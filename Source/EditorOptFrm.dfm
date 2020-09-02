@@ -243,6 +243,7 @@ object EditorOptForm: TEditorOptForm
           Width = 100
           Height = 23
           Style = csDropDownList
+          ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
           ItemHeight = 15
           TabOrder = 0
           Items.Strings = (
@@ -257,6 +258,7 @@ object EditorOptForm: TEditorOptForm
           Width = 100
           Height = 23
           Style = csDropDownList
+          ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
           ItemHeight = 15
           TabOrder = 1
           Items.Strings = (
@@ -456,6 +458,7 @@ object EditorOptForm: TEditorOptForm
           Height = 66
           AutoComplete = False
           Style = csOwnerDrawVariable
+          ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
           ItemHeight = 60
           Sorted = True
           TabOrder = 6
@@ -511,6 +514,7 @@ object EditorOptForm: TEditorOptForm
           Height = 66
           AutoComplete = False
           Style = csOwnerDrawVariable
+          ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
           ItemHeight = 60
           Sorted = True
           TabOrder = 0
@@ -722,6 +726,7 @@ object EditorOptForm: TEditorOptForm
         Width = 130
         Height = 23
         Style = csDropDownList
+        ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         ItemHeight = 15
         TabOrder = 1
         OnSelect = cboQuickColorSelect
@@ -743,6 +748,7 @@ object EditorOptForm: TEditorOptForm
         Top = 386
         Width = 285
         Height = 23
+        ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         TabOrder = 4
       end
       object cbSyntaxHighlight: TCheckBox

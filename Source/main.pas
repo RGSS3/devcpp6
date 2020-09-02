@@ -129,7 +129,6 @@ type
     CompileBtn: TToolButton;
     RunBtn: TToolButton;
     CompileAndRunBtn: TToolButton;
-    DebugBtn: TToolButton;
     RebuildAllBtn: TToolButton;
     tbProject: TToolBar;
     AddToProjectBtn: TToolButton;
@@ -343,8 +342,6 @@ type
     actImportMSVC: TAction;
     ImportItem: TMenuItem;
     N41: TMenuItem;
-    ToggleBreakpointPopupItem: TMenuItem;
-    AddWatchPopupItem: TMenuItem;
     actViewCPU: TAction;
     actExecParams: TAction;
     mnuExecParameters: TMenuItem;
@@ -460,9 +457,6 @@ type
     ToolButton3: TToolButton;
     SplitterBottom: TSplitter;
     N76: TMenuItem;
-    N12: TMenuItem;
-    Abortcompilation1: TMenuItem;
-    oggleBreakpoint1: TMenuItem;
     N18: TMenuItem;
     StopBtn: TToolButton;
     ToolButton5: TToolButton;
@@ -520,7 +514,6 @@ type
     N77: TMenuItem;
     actOpenFolder1: TMenuItem;
     actGotoBreakPoint: TAction;
-    Abortcompilation2: TMenuItem;
     actToggleCommentInline: TAction;
     actCommentInlineSel1: TMenuItem;
     FormatMenu: TMenuItem;
@@ -532,6 +525,19 @@ type
     actRunTests: TAction;
     DonateItem: TMenuItem;
     actDonate: TAction;
+    System1: TMenuItem;
+    Opendirectorywithcmd1: TMenuItem;
+    Opendirectorywithbash1: TMenuItem;
+    Opendirectorywithexplorer1: TMenuItem;
+    actOpenCmd: TAction;
+    actOpenBash: TAction;
+    actOpenExplorer: TAction;
+    N12: TMenuItem;
+    Refresh1: TMenuItem;
+    actRefresh: TAction;
+    N47: TMenuItem;
+
+
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormDestroy(Sender: TObject);
     procedure ToggleBookmarkClick(Sender: TObject);
@@ -790,6 +796,11 @@ type
     procedure actRunTestsExecute(Sender: TObject);
     procedure WMCopyData(var Message: TMessage); message WM_COPYDATA;
     procedure actDonateExecute(Sender: TObject);
+    procedure actOpenCmdExecute(Sender: TObject);
+    procedure actOpenBashExecute(Sender: TObject);
+    procedure actOpenExplorerExecute(Sender: TObject);
+    procedure actRefreshExecute(Sender: TObject);
+    procedure LoadMenu(path : AnsiString);
   private
     fPreviousHeight: integer; // stores MessageControl height to be able to restore to previous height
     fTools: TToolController; // tool list controller
@@ -810,6 +821,7 @@ type
     fLogOutputRawData: TStringList;
     fCriticalSection: TCriticalSection; // protects fFilesToOpen
     fFilesToOpen: TStringList; // files to open on show
+    fCommandList: TStringList;
     function ParseToolParams(s: AnsiString): AnsiString;
     procedure BuildBookMarkMenus;
     procedure SetHints;
@@ -854,6 +866,9 @@ type
     procedure OnInputEvalReady(const evalvalue: AnsiString);
     procedure SetStatusbarLineCol;
     procedure SetStatusbarMessage(const msg: AnsiString);
+    procedure UpdateCommands;
+    procedure CommandClick(sender: TObject);
+
 
     // Hide variables
     property AutoSaveTimer: TTimer read fAutoSaveTimer write fAutoSaveTimer;
@@ -987,6 +1002,7 @@ begin
   FreeAndNil(fEditorList);
   FreeAndNil(fCompiler);
   FreeAndNil(fDebugger);
+  FreeAndNil(fCommandList);
   FreeAndNil(dmMain);
   devExecutor.Free; // sets itself to nil
   Lang.Free; // sets itself to nil
@@ -1102,6 +1118,12 @@ begin
   actCloseProject.Caption := Lang[ID_ITEM_CLOSEPROJECT];
   actCloseAll.Caption := Lang[ID_ITEM_CLOSEALL];
   actFileProperties.Caption := Lang[ID_ITEM_PROPERTIES];
+
+  System1.Caption := Lang[ID_SYSTEM];
+  actOpenCmd.Caption := Lang[ID_SYSTEM_OPEN_CMD];
+  actOpenBash.Caption := Lang[ID_SYSTEM_OPEN_BASH];
+  actOpenExplorer.Caption := Lang[ID_SYSTEM_OPEN_FOLDER];
+  actRefresh.Caption := Lang[ID_SYSTEM_REFRESH];
 
   // Import submenu
   ImportItem.Caption := Lang[ID_SUB_IMPORT];
@@ -5954,6 +5976,8 @@ begin
 
   // We need this variable during the whole startup process
   devData.First := FALSE;
+  fCommandList := TStringList.Create;
+  UpdateCommands;
 end;
 
 procedure TMainForm.EditorPageControlMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
@@ -6658,5 +6682,175 @@ begin
     SW_SHOWNORMAL);
 end;
 
-end.
 
+procedure TMainForm.actOpenCmdExecute(Sender: TObject);
+var
+  e: TEditor;
+  dir : AnsiString;
+  line : AnsiString;
+  path : AnsiString;
+begin
+    e := fEditorList.GetEditor;
+    path := GetEnvironmentVariable('PATH');
+    SetEnvironmentVariable('PATH', PAnsiChar(AnsiString(devDirs.Exec) + AnsiString('\\MinGW64\\bin;') + path));
+    if Assigned(e) and (e.FileName <> AnsiString('')) then begin
+       dir  := ExtractFilePath(e.FileName);
+       if dir <> AnsiString('') then begin
+         line := AnsiString('cmd /k cd /d ') + dir;
+         WinExec(PAnsiChar(line), SW_SHOWNORMAL);
+       end;
+    end;
+    SetEnvironmentVariable('PATH', PAnsiChar(path));
+end;
+
+
+
+procedure TMainForm.actOpenBashExecute(Sender: TObject);
+var
+  e: TEditor;
+  dir : AnsiString;
+  line : AnsiString;
+  bbox : AnsiString;
+  path : AnsiString;
+begin
+    e := fEditorList.GetEditor;
+    path := GetEnvironmentVariable('PATH');
+    SetEnvironmentVariable('PATH', PAnsiChar(devDirs.Exec + AnsiString('\\MinGW64\\bin;') + path));
+    bbox := devDirs.Exec + '\' + BUSYBOX_PROGRAM;
+    if Assigned(e) and (e.FileName <> AnsiString('')) then begin
+       dir  := ExtractFilePath(e.FileName);
+       if dir <> AnsiString('') then begin
+         line := AnsiString('cmd /k cd /d ') + dir + AnsiString(' & ') + bbox + ' bash';
+         WinExec(PAnsiChar(line), SW_SHOWNORMAL);
+       end;
+    end;
+    SetEnvironmentVariable('PATH', PAnsiChar(path));
+end;
+
+
+
+procedure TMainForm.actOpenExplorerExecute(Sender: TObject);
+var
+  e: TEditor;
+  dir : AnsiString;
+  line : AnsiString;
+  path : AnsiString;
+begin
+    e := fEditorList.GetEditor;
+    path := GetEnvironmentVariable('PATH');
+    SetEnvironmentVariable('PATH', PAnsiChar(devDirs.Exec + AnsiString('\\MinGW64\\bin;') + path));
+    if Assigned(e) and (e.FileName <> AnsiString('')) then begin
+       dir  := ExtractFilePath(e.FileName);
+       if dir <> AnsiString('') then begin
+         line := AnsiString('explorer ') + dir;
+         WinExec(PAnsiChar(line), SW_SHOWNORMAL);
+       end;
+    end;
+    SetEnvironmentVariable('PATH', PAnsiChar(path));
+end;
+
+procedure TMainForm.LoadMenu(path : AnsiString);
+var
+   strList : TStringList;
+   i : Longint;
+   menu : TMenuItem;
+   cap : AnsiString;
+   func : AnsiString;
+   p : Longint;
+begin
+   strList := TStringList.Create;
+   strList.LoadFromFile(devDirs.Exec + path);
+   for i := 0 to strList.Count - 1 do begin
+       if (length(trim(strList[i])) = 0) or (strList[i][1] = '#') then begin
+           // Do nothing
+       end else if strList[i][1] = '<' then begin
+           LoadMenu(trim(copy(strList[i], 2, length(strList[i]) - 1)));
+       end else if strList[i][1] = '-' then begin
+         menu := TMenuItem.Create(Self);
+         menu.Caption := '-';
+         menu.Enabled := False;
+         System1.Add(menu);
+       end else begin
+         p := Pos('=:=', strList[i]);
+         cap := Trim(copy(strList[i], 1, p - 1));
+         func := Trim(copy(strList[i], p + 3, length(strList[i])));
+         fCommandList.Add(func);
+         menu := TMenuItem.Create(Self);
+         menu.Caption := cap;
+         menu.Tag     := fCommandList.Count - 1;
+         menu.AutoHotkeys := maManual;
+         menu.OnClick := CommandClick;
+         System1.Add(menu);
+       end;
+   end;
+   strList.Free;
+end;
+
+procedure TMainForm.UpdateCommands;
+var
+   i : Longint;
+begin
+   for i := System1.Count - 1 downto 6 do begin
+      System1.Items[i].Free;
+      fCommandList.Clear;
+   end;
+   LoadMenu('\photogram\commands.txt');
+end;
+
+procedure TMainForm.CommandClick(Sender: TObject);
+var
+  e: TEditor;
+  dir : AnsiString;
+  line : AnsiString;
+  path : AnsiString;
+  cmdline : AnsiString;
+begin
+    e := fEditorList.GetEditor;
+    path := GetEnvironmentVariable('PATH');
+    SetEnvironmentVariable('PATH', PAnsiChar(AnsiString(devDirs.Exec) + AnsiString('\\MinGW64\\bin;') + path));
+    SetEnvironmentVariable('devcpp.file.rawname', PAnsiChar(''));
+    SetEnvironmentVariable('devcpp.file.dir', PAnsiChar(''));
+    SetEnvironmentVariable('devcpp.file.name', PAnsiChar(''));
+    SetEnvironmentVariable('devcpp.compiler.dir', PAnsiChar(AnsiString(devDirs.Exec) + AnsiString('\\MinGW64')));
+    SetEnvironmentVariable('devcpp.compiler.runparams', PAnsiChar(fCompiler.RunParams));
+    SetEnvironmentVariable('devcpp.compiler.makefile', PAnsiChar(fCompiler.MakeFile));
+    SetEnvironmentVariable('devcpp.compiler.p0', PAnsiChar(fCompiler.SourceFile));
+    {*
+      property Compiling: Boolean read GetCompiling;
+      property Project: TProject read fProject write fProject;
+
+      property SourceFile: AnsiString read fSourceFile write fSourceFile;
+      property CompilerSet: TdevCompilerSet read fCompilerSet write fCompilerSet;
+      property RunParams: AnsiString read fRunParams write fRunParams; // only for nonproject compilations
+      property MakeFile: AnsiString read GetMakeFile;
+      property Target: TTarget read fTarget write fTarget;
+      property WarningCount: integer read fWarnCount;
+      property ErrorCount: integer read fErrCount;
+    *}
+    line := AnsiString('cmd /c cd /d ') + AnsiString(devDirs.Exec) + AnsiString(' & ');
+
+    if Assigned(e) and (e.FileName <> AnsiString('')) then begin
+       SetEnvironmentVariable('devcpp.file.rawname', PAnsiChar(e.FileName));
+       dir  := ExtractFilePath(e.FileName);
+       if dir <> AnsiString('') then begin
+         SetEnvironmentVariable('devcpp.file.dir', PAnsiChar(dir));
+         SetEnvironmentVariable('devcpp.file.name', PAnsiChar(e.FileName));
+         line := AnsiString('cmd /c cd /d ') + dir + AnsiString(' & ');
+       end
+    end;
+    SetEnvironmentVariable('devcpp.dir', PAnsiChar(devDirs.Exec));
+    SetEnvironmentVariable('devcpp.version', PAnsiChar(DEVCPP_VERSION));
+    cmdline := fCommandList[(Sender as TMenuItem).Tag];
+    line := line + cmdline;
+    WinExec(PAnsiChar(line), SW_SHOWNORMAL);
+    SetEnvironmentVariable('PATH', PAnsiChar(path));
+end;
+
+
+
+procedure TMainForm.actRefreshExecute(Sender: TObject);
+begin
+  UpdateCommands;
+end;
+
+end.

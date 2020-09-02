@@ -1304,3 +1304,12 @@ const
   ID_FORMATTER_POWEREDBY                = 79019;
   ID_FORMATTER_MAXLINELENGTH            = 79020;
   ID_FORMATTER_LOADERROR                = 79021;
+
+  // System Menu
+  ID_SYSTEM                             = 80001;
+  ID_SYSTEM_OPEN_CMD                    = 80002;
+  ID_SYSTEM_OPEN_BASH                   = 80003;
+  ID_SYSTEM_OPEN_FOLDER                 = 80004;
+  ID_SYSTEM_REFRESH                     = 80005;
+
+

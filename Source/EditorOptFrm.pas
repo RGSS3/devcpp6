@@ -408,7 +408,7 @@ begin
 
   // Set defaults of color buttons, don't want all system colors too
   cpMarginColor.Items.InsertObject(1, 'Default', TObject(cpMarginColor.DefaultColorColor));
-  cpHighColor.Items.InsertObject(1, 'Default', TObject(cpHighColor.DefaultColorColor));
+  cpHighColor.Items.InsertObject(1, 'Default', TObject($FFCC66));
   cpCompletionBackground.Items.InsertObject(1, 'Default', TObject(cpCompletionBackground.DefaultColorColor));
 end;
 
