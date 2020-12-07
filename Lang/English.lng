@@ -1251,3 +1251,10 @@ Ver=1
 79019=Powered by %s
 79020=Max. line length:
 79021=// Could not find the AStyle output file:<CR>// %s
+
+
+80001=System
+80002=Open directory with CMD
+80003=Open directory with BASH
+80004=Open directory with Explorer
+80005=Refresh Commands

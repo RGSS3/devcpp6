@@ -1,9 +1,9 @@
 ####################################################################
 # Startup
 
-!define COMPILERNAME "TDM-GCC 4.9.2"
+!define COMPILERNAME "TDM-GCC 9.2"
 !define COMPILERFOLDER "MinGW64"
-!define DEVCPP_VERSION "5.11"
+!define DEVCPP_VERSION "6.0u"
 !define FINALNAME "Dev-Cpp ${DEVCPP_VERSION} ${COMPILERNAME} Setup.exe"
 !define DISPLAY_NAME "Dev-C++ ${DEVCPP_VERSION}"
 
@@ -26,7 +26,7 @@ ShowInstDetails show
 AutoCloseWindow false
 SilentInstall normal
 CRCCheck on
-SetCompressor /SOLID /FINAL lzma
+SetCompressor zlib
 SetDatablockOptimize on
 SetOverwrite try
 XPStyle on
@@ -57,32 +57,10 @@ InstType "Safe";3
 ####################################################################
 # Languages
 
+!insertmacro MUI_LANGUAGE "SimpChinese"
+!insertmacro MUI_LANGUAGE "TradChinese"
 !insertmacro MUI_LANGUAGE "English"
-!insertmacro MUI_LANGUAGE "Bulgarian"
-!insertmacro MUI_LANGUAGE "Catalan"
-!insertmacro MUI_LANGUAGE "Croatian"
-!insertmacro MUI_LANGUAGE "Czech"
-!insertmacro MUI_LANGUAGE "Danish"
-!insertmacro MUI_LANGUAGE "Dutch"
-!insertmacro MUI_LANGUAGE "Estonian"
-!insertmacro MUI_LANGUAGE "French"
-!insertmacro MUI_LANGUAGE "German"
-!insertmacro MUI_LANGUAGE "Greek"
-!insertmacro MUI_LANGUAGE "Hungarian"
-!insertmacro MUI_LANGUAGE "Italian"
-!insertmacro MUI_LANGUAGE "Korean"
-!insertmacro MUI_LANGUAGE "Latvian"
-!insertmacro MUI_LANGUAGE "Norwegian"
-!insertmacro MUI_LANGUAGE "Polish"
-!insertmacro MUI_LANGUAGE "Portuguese"
-!insertmacro MUI_LANGUAGE "Romanian"
-!insertmacro MUI_LANGUAGE "Russian"
-!insertmacro MUI_LANGUAGE "Slovak"
-!insertmacro MUI_LANGUAGE "Slovenian"
-!insertmacro MUI_LANGUAGE "Spanish"
-!insertmacro MUI_LANGUAGE "Swedish"
-!insertmacro MUI_LANGUAGE "Turkish"
-!insertmacro MUI_LANGUAGE "Ukrainian"
+
 
 ####################################################################
 # Files, by option section
@@ -102,7 +80,7 @@ Section "Dev-C++ program files (required)" SectionMain
   
   ; Write required files
   File "devcpp.exe"
-  File "devcppPortable.exe"
+  ; File "devcppPortable.exe"
   File "devcpp.map"
   File "packman.exe"
   File "Packman.map"
@@ -110,16 +88,39 @@ Section "Dev-C++ program files (required)" SectionMain
   File "devcpp.exe.manifest"
   File "copying.txt"
   File "NEWS.txt"
+  File "busybox.exe"
+  File DYNF.ttf
+  ;File "DejaVuSansMono YaHei NF.ttf"
+  ;StrCpy $0 "$INSTDIR\DejaVuSansMono YaHei NF.ttf"
+  ;WriteRegStr HKLM "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" "DejaVuSansMono YaHei NF Devcpp" "$0"
+  ;System::Call "GDI32::AddFontResource(t) i ('$0') .s"
+  ;Pop $0
+  ;IntCmp $0 0 0 +2 +2
+  ;MessageBox MB_OK "注册字体失败"
+  ;System::Call "User32::SendMessageTimeout(iiiiiii)i (${HWND_BROADCAST}, ${WM_FONTCHANGE}, 0, 0, 11, 5000, 0) .s"
+  GetTempFileName $1
+  FileOpen $0 $1 w
+  FileWrite $0 `Set sh = CreateObject("Shell.Application")$\n`
+  FileWrite $0 `sh.NameSpace(20).MoveHere sh.NameSpace("$INSTDIR").ParseName("DYNF.ttf")$\n`
+  FileClose $0
+  nsExec::ExecToStack `"$SYSDIR\CScript.exe" $1 //e:vbscript //B //NOLOGO`
+  Pop $0
+  Delete DYNF.ttf
+  DetailPrint `Return Code = $0`
+  
   
   ; Write required paths
   SetOutPath $INSTDIR\Lang
-  File /nonfatal /r "Lang\English.*"
+  File /r "Lang\English.*"
   SetOutPath $INSTDIR\Templates
-  File /nonfatal /r "Templates\*"
+  File /r "Templates\*"
   SetOutPath $INSTDIR\Help
-  File /nonfatal /r "Help\*"
+  File /r "Help\*"
   SetOutPath $INSTDIR\AStyle
-  File /nonfatal /r "AStyle\*"
+  File /r "AStyle\*"
+  SetOutPath $INSTDIR\Photogram
+  File /r "Photogram\*"
+  
 SectionEnd
 
 Section "Icon files" SectionIcons
@@ -133,7 +134,9 @@ Section "${COMPILERNAME} compiler" SectionMinGW
   SectionIn 1 2 3
   SetOutPath $INSTDIR
 
-  File /nonfatal /r "${COMPILERFOLDER}"
+  File /nonfatal "${COMPILERFOLDER}.7z"
+  Nsis7z::ExtractWithDetails "${COMPILERFOLDER}.7z" "Installing %s..."
+  Delete "$OUTDIR\${COMPILERFOLDER}.7z"
 SectionEnd
 
 Section "Language files" SectionLangs
@@ -304,7 +307,7 @@ SectionEnd
 SubSectionEnd
 
 Section "Remove old configuration files" SectionConfig
-  SectionIn 3
+  SectionIn 1 3
 
   RMDir /r "$APPDATA\Dev-Cpp"
   
@@ -469,7 +472,6 @@ Section "Uninstall"
   Delete "$INSTDIR\devcpp.map"
   Delete "$INSTDIR\devcpp.exe"
   Delete "$INSTDIR\devcpp.exe.manifest"
-  Delete "$INSTDIR\devcppPortable.exe"
   Delete "$INSTDIR\ConsolePauser.exe"
   Delete "$INSTDIR\copying.txt"
 
@@ -481,7 +483,24 @@ Section "Uninstall"
   RMDir /r "$INSTDIR\Packages"
   RMDir /r "$INSTDIR\Templates"
   RMDir /r "$INSTDIR\Astyle"
-
+  Delete "$INSTDIR\busybox.exe"
+  RMDir /r "$INSTDIR\photogram\*"
+  DetailPrint "正在卸载字体，需要一些时间来通知所有进程，请稍候"
+  ;StrCpy $0 "$INSTDIR\DejaVuSansMono YaHei NF.ttf"
+  ;DeleteRegValue HKLM "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" "DejaVuSansMono YaHei NF Devcpp"
+  ;System::Call "GDI32::RemoveFontResource(t) i ('$0') .s"
+  ;System::Call "User32::SendMessageTimeout(iiiiiii)i (${HWND_BROADCAST}, ${WM_FONTCHANGE}, 0, 0, 11, 20000, 0) .s"
+  ;Delete "$INSTDIR\DejaVuSansMono YaHei NF.ttf"
+  
+  GetTempFileName $1
+  FileOpen $0 $1 w
+  FileWrite $0 `Set sh = CreateObject("Shell.Application")$\n`
+  FileWrite $0 `sh.NameSpace("$INSTDIR").MoveHere sh.NameSpace(20).ParseName("DYNF.ttf")$\n`
+  FileClose $0
+  nsExec::ExecToStack `"$SYSDIR\CScript.exe" $1 //e:vbscript //B //NOLOGO`
+  Pop $0
+  DetailPrint `Return Code = $0`
+  Delete "$INSTDIR\DYNF.ttf"
   StrCpy $0 "$INSTDIR"
   Call un.DeleteDirIfEmpty
 
@@ -502,6 +521,6 @@ Section "Uninstall"
   Delete "$INSTDIR\mirrors.cfg"
   Delete "$INSTDIR\tools.ini"
   Delete "$INSTDIR\devcpp.ci"
-
+  RMDir /r "$INSTDIR"
 Done:
 SectionEnd
