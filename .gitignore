@@ -48,7 +48,7 @@
 *.projdata
 *.tvsconfig
 *.dsk
-
+*Setup.exe
 # Delphi history and backups
 __history/
 *.~*

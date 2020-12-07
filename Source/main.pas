@@ -208,7 +208,6 @@ type
     actCompRun: TAction;
     actRebuild: TAction;
     actClean: TAction;
-    actDebug: TAction;
     actCompOptions: TAction;
     actEnviroOptions: TAction;
     actEditorOptions: TAction;
@@ -244,7 +243,6 @@ type
     MsgCopyAllItem: TMenuItem;
     MsgSaveAllItem: TMenuItem;
     MsgClearItem: TMenuItem;
-    actBreakPoint: TAction;
     actIncremental: TAction;
     IncrementalSearch1: TMenuItem;
     actShowBars: TAction;
@@ -254,7 +252,6 @@ type
     DebugSheet: TTabSheet;
     actAddWatch: TAction;
     actEditWatch: TAction;
-    actNextLine: TAction;
     actStepOver: TAction;
     actWatchItem: TAction;
     actRemoveWatch: TAction;
@@ -319,7 +316,6 @@ type
     CloseAll1: TMenuItem;
     Closeallexceptthis1: TMenuItem;
     CloseAll2: TMenuItem;
-    actStepLine: TAction;
     DebugPopup: TPopupMenu;
     AddwatchPop: TMenuItem;
     RemoveWatchPop: TMenuItem;
@@ -1230,9 +1226,6 @@ begin
   actSyntaxCheckFile.Caption := Lang[ID_ITEM_SYNTAXCHECKFILE];
   actClean.Caption := Lang[ID_ITEM_CLEAN];
   actProfile.Caption := Lang[ID_ITEM_PROFILE];
-  actDebug.Caption := Lang[ID_ITEM_DEBUG];
-  actGotoBreakPoint.Caption := Lang[ID_ITEM_GOTOBREAKPOINT];
-  actBreakPoint.Caption := Lang[ID_ITEM_TOGGLEBREAK];
   actDeleteProfile.Caption := Lang[ID_ITEM_DELPROFINFORMATION];
   actAbortCompilation.Caption := Lang[ID_ITEM_ABORTCOMP];
 
@@ -1269,8 +1262,6 @@ begin
   actEditWatch.Caption := Lang[ID_ITEM_WATCHEDIT];
   actModifyWatch.Caption := Lang[ID_ITEM_MODIFYVALUE];
   actRemoveWatch.Caption := Lang[ID_ITEM_WATCHREMOVE];
-  actNextLine.Caption := Lang[ID_ITEM_STEPNEXT];
-  actStepLine.Caption := Lang[ID_ITEM_STEPINTO];
   actStepOver.Caption := Lang[ID_ITEM_STEPOVER];
   actWatchItem.Caption := Lang[ID_ITEM_WATCHITEMS];
   actStopExecute.Caption := Lang[ID_ITEM_STOPEXECUTION];
@@ -1320,7 +1311,7 @@ begin
   FindSheet.Caption := Lang[ID_SHEET_FIND];
   CloseSheet.Caption := Lang[ID_SHEET_CLOSE];
 
-  // Compiler Tab
+  // Compiler Tab        
   CompilerOutput.Columns[0].Caption := Lang[ID_COL_LINE];
   CompilerOutput.Columns[1].Caption := Lang[ID_COL_COL];
   CompilerOutput.Columns[2].Caption := Lang[ID_COL_FILE];
@@ -1796,7 +1787,7 @@ begin
         fCompiler.Run;
       end;
     csaDebug: begin
-        actDebug.Execute;
+        //actDebug.Execute;
       end;
     csaProfile: begin
         actProfile.Execute

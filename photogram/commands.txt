@@ -1,0 +1,14 @@
+# #开头的行是注释
+# <开头的行是导入 如<photogram/cmd2.txt
+# 其他的命令写成 Hello=:=echo 123 & pause
+# 将会显示为Hello， 执行的是echo 123 & pause
+# 可用的环境变量 
+# devcpp.file.rawname   临时文件名
+# devcpp.file.dir       如果文件已经保存，这里是文件目录，否则没定义
+# devcpp.file.name      如果文件已经保存，这里是文件路径，否则没定义
+# devcpp.version        devcpp版本 如6.0u
+# devcpp.dir            devcpp目录 如C:\Dev-Cpp\
+# devcpp.compiler.dir   编译器目录 如C:\Dev-Cpp\MinGW64
+# PATH默认加入了devcpp.dir和devcpp.compiler.dir
+
+# 空行也是被忽略的

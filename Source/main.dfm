@@ -248,7 +248,7 @@ object MainForm: TMainForm
           Left = 4
           Top = 30
           Width = 395
-          Height = 118
+          Height = 116
           Anchors = [akLeft, akTop, akRight, akBottom]
           ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
           ReadOnly = True
@@ -274,7 +274,7 @@ object MainForm: TMainForm
           Top = 8
           Width = 112
           Height = 25
-          Action = actDebug
+          Caption = '&Debug'
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000000000000000000000000000000000000FF00FF00FF00
@@ -310,6 +310,7 @@ object MainForm: TMainForm
             FF00FF00FF00FF00FF00FF00FF0000000000FFC6DE0000000000FF00FF00FF00
             FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
             FF00FF00FF00FF00FF00FF00FF00FF00FF0000000000FF00FF00}
+          OnClick = actDebugExecute
         end
         object StopExecBtn: TSpeedButton
           Left = 4
@@ -365,8 +366,9 @@ object MainForm: TMainForm
           Top = 8
           Width = 112
           Height = 25
-          Action = actNextLine
+          Caption = '&Next line'
           TabOrder = 0
+          OnClick = actNextLineExecute
         end
         object StepOverBtn: TButton
           Left = 352
@@ -381,8 +383,9 @@ object MainForm: TMainForm
           Top = 38
           Width = 112
           Height = 25
-          Action = actStepLine
+          Caption = 'Into line'
           TabOrder = 2
+          OnClick = actStepLineExecute
         end
         object AddWatchBtn: TButton
           Left = 120
@@ -2176,15 +2179,6 @@ object MainForm: TMainForm
       OnExecute = actCleanExecute
       OnUpdate = actCompileUpdate
     end
-    object actDebug: TAction
-      Tag = 6
-      Category = 'Debug'
-      Caption = '&Debug'
-      ImageIndex = 32
-      ShortCut = 116
-      OnExecute = actDebugExecute
-      OnUpdate = actCompileUpdate
-    end
     object actCompOptions: TAction
       Tag = 1
       Category = 'Tools'
@@ -2286,13 +2280,6 @@ object MainForm: TMainForm
       Caption = 'Show Toolbars'
       ShortCut = 16507
       OnExecute = actShowBarsExecute
-    end
-    object actBreakPoint: TAction
-      Category = 'Debug'
-      Caption = 'Toggle Breakpoint'
-      ShortCut = 115
-      OnExecute = actBreakPointExecute
-      OnUpdate = actUpdateEmptyEditor
     end
     object actAddWatch: TAction
       Category = 'Debug'
@@ -2569,21 +2556,6 @@ object MainForm: TMainForm
       OnExecute = actModifyWatchExecute
       OnUpdate = actModifyWatchUpdate
     end
-    object actNextLine: TAction
-      Category = 'Debug'
-      Caption = '&Next line'
-      ImageIndex = 18
-      ShortCut = 118
-      OnExecute = actNextLineExecute
-      OnUpdate = actUpdateDebuggerRunning
-    end
-    object actStepLine: TAction
-      Category = 'Debug'
-      Caption = 'Into line'
-      ShortCut = 119
-      OnExecute = actStepLineExecute
-      OnUpdate = actUpdateDebuggerRunning
-    end
     object actDeleteProfile: TAction
       Category = 'Execute'
       Caption = 'Delete Profiling information'
@@ -2818,18 +2790,21 @@ object MainForm: TMainForm
       Category = 'System'
       Caption = 'actOpenCmd'
       ImageIndex = 38
+      ShortCut = 16500
       OnExecute = actOpenCmdExecute
     end
     object actOpenBash: TAction
       Category = 'System'
       Caption = 'actOpenBash'
       ImageIndex = 38
+      ShortCut = 16501
       OnExecute = actOpenBashExecute
     end
     object actOpenExplorer: TAction
       Category = 'System'
       Caption = 'actOpenExplorer'
       ImageIndex = 4
+      ShortCut = 16502
       OnExecute = actOpenExplorerExecute
     end
     object actRefresh: TAction

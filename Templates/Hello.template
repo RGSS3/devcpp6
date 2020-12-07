@@ -3,7 +3,7 @@ ver=1
 Name=Hello World
 Icon=Communication.ico
 Description=A classic Hello World program
-Category=Console
+Category=Basic
 
 [Unit0]
 CName=main.c
@@ -15,3 +15,5 @@ Cpp=Hello_cpp.txt
 UnitCount=1
 Type=1
 Icon=Communication.ico
+Compiler=-Wall -Werror -Wextra -pedantic -Wimplicit-fallthrough -Wsequence-point -Wswitch-default -Wswitch-unreachable -Wswitch-enum -Wstringop-truncation -Wbool-compare -Wtautological-compare -Wfloat-equal -Wshadow=global -Wpointer-arith -Wpointer-compare -Wcast-align -Wcast-qual -Wconversion -Wwrite-strings -Wdangling-else -Wconversion -Wlogical-op
+CppCompiler=-Wall -Werror -Wextra -pedantic -Wimplicit-fallthrough -Wsequence-point -Wswitch-default -Wswitch-unreachable -Wswitch-enum -Wstringop-truncation -Wbool-compare -Wtautological-compare -Wfloat-equal -Wshadow=global -Wpointer-arith -Wpointer-compare -Wcast-align -Wcast-qual -Wconversion -Wwrite-strings -Wdangling-else -Wconversion -Wlogical-op
