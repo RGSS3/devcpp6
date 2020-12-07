@@ -29,6 +29,8 @@ namespace Update
             {
                 if (DialogResult.Yes == MessageBox.Show("检查到新版本，是否更新？", "更新", MessageBoxButtons.YesNo))
                 {
+                    try { foreach (Process p in Process.GetProcessesByName("devcpp")) p.Kill(); } catch { }
+
                     if (lasterVersion - currentVersion >= 2)
                     {
                         fullUpdate = true;
@@ -37,7 +39,8 @@ namespace Update
                     else updater.Download(baseUrl + "Build/devcpp_i.zip", DownloadProgressCallback, DownloadCompletedCallback);
                 }
             }
-            else Application.Exit();
+
+            Application.Exit();
         }
 
         private void Update_Load(object sender, EventArgs e) { }
