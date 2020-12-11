@@ -10,7 +10,7 @@ namespace Update
 {
     public class UpdateLite
     {
-        const string downloadPath = @"C:\Users\Blinking\AppData\Local\Temp\devcpp.zip";
+        private string downloadPath = System.Environment.GetEnvironmentVariable("TEMP") + @"\devcpp.zip";
 
         public WebClient webClient = new WebClient();
 

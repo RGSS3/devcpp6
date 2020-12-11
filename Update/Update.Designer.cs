@@ -40,6 +40,7 @@ namespace Update
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(218, 26);
             this.progressBar.TabIndex = 0;
+            this.progressBar.Click += new System.EventHandler(this.progressBar_Click);
             // 
             // Update
             // 
@@ -49,10 +50,11 @@ namespace Update
             this.Controls.Add(this.progressBar);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Update";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DEV C++ 更新程序";
             this.Load += new System.EventHandler(this.Update_Load);
             this.ResumeLayout(false);

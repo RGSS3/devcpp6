@@ -24,7 +24,7 @@ namespace Update
 
             int lasterVersion = int.Parse(updater.GetVersion(baseUrl + "version"));
             int currentVersion = int.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + "/version"));
-
+            
             if (lasterVersion - currentVersion > 0)
             {
                 if (DialogResult.Yes == MessageBox.Show("检查到新版本，是否更新？", "更新", MessageBoxButtons.YesNo))
@@ -39,8 +39,8 @@ namespace Update
                     else updater.Download(baseUrl + "Build/devcpp_i.zip", DownloadProgressCallback, DownloadCompletedCallback);
                 }
             }
-
-            Application.Exit();
+            System.Environment.Exit(0);
+            //Application.Exit();
         }
 
         private void Update_Load(object sender, EventArgs e) { }
@@ -76,6 +76,11 @@ namespace Update
                 MessageBox.Show("下载文件错误，更新失败！");
                 Application.Exit();
             }
+        }
+
+        private void progressBar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
