@@ -101,16 +101,17 @@ end;
 
 procedure TLangForm.UpdateLangList(List: TStrings);
 var
-  I, sel: integer;
+  I: integer;
 begin
   lbLanguages.Items.BeginUpdate;
   try
     lbLanguages.Clear;
     for I := 0 to List.Count - 1 do begin
-      sel := lbLanguages.Items.Add(List.ValueFromIndex[I]);
-      if StartsText('english', lbLanguages.Items[sel]) then
-        lbLanguages.Selected[sel] := True;
+      lbLanguages.Items.Add(List.ValueFromIndex[I]);
+      //if ContainsText('Chinese', lbLanguages.Items[sel]) then
+      //lbLanguages.Selected[sel] := True;
     end;
+    lbLanguages.Selected[0] := True;
   finally
     lbLanguages.Items.EndUpdate;
   end;

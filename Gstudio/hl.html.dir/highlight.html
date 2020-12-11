@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+<style>
+  code {
+      font-family:"DejaVuSansMono YaHei NF";
+      border-radius: 14px;
+      font-size: 10px;
+  }
+  h2, h3, h4 {
+  	font-family:"Cambria Math", monospace;	
+  }
+  
+  .collapse {
+  	transition: all 1s ease;
+	visibility: visible;	
+	display: block;
+  }
+  
+  .collapse.closed{
+  	transition: all 1s ease;
+	visibility: hidden;
+  }
+</style>
+<link rel="stylesheet"
+      href="http://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.1/build/styles/github.min.css">
+<script src="http://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.1/build/highlight.min.js"></script>
+</head>
+<body>
+
+<div style='margin: auto; max-width: 1000px;'>
+<h2 style='align: center;' id='title'> </h2>
+<div id='block'>
+</div>
+</div>
+
+<script>
+  let content = JSON.parse(unescape("%7B%22source%22%3A%22%3C%21doctype%20html%3E%5Cn%3Chtml%3E%5Cn%3Chead%3E%5Cn%3Cstyle%3E%5Cn%20%20code%20%7B%5Cn%20%20%20%20%20%20font-family%3A%5C%22DejaVuSansMono%20YaHei%20NF%5C%22%3B%5Cn%20%20%20%20%20%20border-radius%3A%2014px%3B%5Cn%20%20%20%20%20%20font-size%3A%2010px%3B%5Cn%20%20%7D%5Cn%20%20h2%2C%20h3%2C%20h4%20%7B%5Cn%20%20%5Ctfont-family%3A%5C%22Cambria%20Math%5C%22%2C%20monospace%3B%5Ct%5Cn%20%20%7D%5Cn%20%20%5Cn%20%20.collapse%20%7B%5Cn%20%20%5Cttransition%3A%20all%201s%20ease%3B%5Cn%5Ctvisibility%3A%20visible%3B%5Ct%5Cn%5Ctdisplay%3A%20block%3B%5Cn%20%20%7D%5Cn%20%20%5Cn%20%20.collapse.closed%7B%5Cn%20%20%5Cttransition%3A%20all%201s%20ease%3B%5Cn%5Ctvisibility%3A%20hidden%3B%5Cn%20%20%7D%5Cn%3C/style%3E%5Cn%3Clink%20rel%3D%5C%22stylesheet%5C%22%5Cn%20%20%20%20%20%20href%3D%5C%22http%3A//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.1/build/styles/github.min.css%5C%22%3E%5Cn%3Cscript%20src%3D%5C%22http%3A//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.1/build/highlight.min.js%5C%22%3E%3C/script%3E%5Cn%3C/head%3E%5Cn%3Cbody%3E%5Cn%5Cn%3Cdiv%20style%3D%27margin%3A%20auto%3B%20max-width%3A%201000px%3B%27%3E%5Cn%3Ch2%20style%3D%27align%3A%20center%3B%27%20id%3D%27title%27%3E%20%3C/h2%3E%5Cn%3Cdiv%20id%3D%27block%27%3E%5Cn%3C/div%3E%5Cn%3C/div%3E%5Cn%5Cn%3Cscript%3E%5Cn%20%20let%20content%20%3D%20JSON.parse%28unescape%28%5C%22%3C%25ESCAPED_CONTENT%25%3E%5C%22%29%29%5Cn%5Cn%20%20document.querySelector%28%5C%22%23title%5C%22%29.innerText%20%3D%20content.filename%5Cn%5Cn%20%5Cn%20%20%5Cn%20%20let%20sourcelines%20%3D%20content.source.split%28%5C%22%5C%5Cn%5C%22%29%5Cn%20%20let%20index%20%3D%201%5Cn%20%20%5Cn%20%20%5Cn%20%20let%20errgroups%20%3D%20%5B%5D%5Cn%20%20let%20errtext%20%3D%20content.stderr.split%28%5C%22%5C%5Cn%5C%22%29%5Cn%20%20errtext.forEach%28line%20%3D%3E%20%7B%5Cn%20%20%5Ctif%20%28line.match%28%5C%22%5E%28%28..%5B%5E%3A%5D+%3A%20In%20function%29%7C%28cc1%28plus%29%3F%5C%5C.exe%29%7Cnote%3A%29%5C%22%29%29%20%7B%5Cn%20%20%5Ct%5Ctreturn%3B%20%20//%20%20discard%5Ct%5Cn%20%20%5Ct%7D%5Cn%20%20%5Ctif%20%28line.match%28%5C%22%5E..%5B%5E%3A%5D+%3A%20In%20function%5C%22%29%29%20%7B%5Cn%20%20%5Ct%5Ctreturn%3B%20%20//%20%20discard%5Ct%5Cn%20%20%5Ct%7D%5Cn%20%20%5Ctlet%20c%20%3D%20line.match%28%5C%22%5E%28..%5B%5E%3A%5D+%29%3A%28%5C%5C%5C%5Cd+%29%3A%28%5C%5C%5C%5Cd+%29%3A%28.*%29%5C%22%29%5Cn%20%20%5Ctif%20%28%21c%29%20%7B%5Cn%20%20%5Ct%5Ctif%20%28errgroups.length%29%20%7B%5Cn%20%20%5Ct%20%20%20%20%5Cterrgroups%5Berrgroups.length%20-%201%5D.text%20+%3D%20line%20+%20%5C%22%5C%5Cn%5C%22%5Cn%20%20%5Ct%20%20%20%20%7D%5Cn%20%20%5Ct%20%20%20%20return%3B%5Cn%20%20%5Ct%7D%5Cn%20%20%5Ctif%20%28c%5B1%5D%20%21%3D%20content.filename%29%20%7B%5Cn%20%20%5Ct%5Ctreturn%3B%5Cn%20%20%5Ct%7D%5Cn%20%20%5Ctlet%20lnn%20%3D%20+c%5B2%5D%3B%5Cn%20%20%5Ctlet%20col%20%3D%20+c%5B3%5D%3B%5Cn%20%20%5Ctlet%20code%20%3D%20%5C%22%5C%22%3B%5Cn%20%20%5Ctlet%20start%20%3D%20index%3B%5Cn%20%20%20%20while%20%28index%20%3C%3D%20lnn%29%20%7B%5Cn%20%20%20%20%5Ctcode%20+%3D%20sourcelines%5Bindex%20-%201%5D%20+%20%5C%22%5C%5Cn%5C%22%5Cn%20%20%20%20%5Ct++index%5Cn%20%20%20%20%7D%5Cn%20%20%20%20errgroups.push%28%7Bcode%3A%20code%2C%20text%3A%20c%5B4%5D%20+%20%5C%22%5C%5Cn%5C%22%2C%20span%3A%20%5Bstart%2C%20index%5D%7D%29%5Cn%20%20%7D%29%5Cn%20%20%5Cn%20%20%5Cn%20%20%7B%5Cn%20%20%5Ctlet%20start%20%3D%20index%5Cn%20%20%5Ctlet%20code%20%3D%20%5C%22%5C%22%5Cn%20%20%5Ctwhile%20%28index%20%3C%3D%20sourcelines.length%29%20%7B%5Cn%20%20%5Ct%20%5Ctcode%20+%3D%20sourcelines%5Bindex%20-%201%5D%20+%20%5C%22%5C%5Cn%5C%22%5Cn%20%20%5Ct%20%5Ct++index%5Cn%20%20%5Ct%7D%5Cn%20%20%5Cterrgroups.push%28%7Bcode%3A%20code%2C%20text%3A%20%5C%22%5C%22%2C%20span%3A%20%5Bstart%2C%20index%5D%7D%29%5Cn%20%20%7D%5Cn%20%20%5Cn%20%20let%20block%20%3D%20document.querySelector%28%5C%22%23block%5C%22%29%20%5Cn%20%20errgroups.forEach%28x%20%3D%3E%20%7B%5Cn%20%20%5Ctlet%20a%20%3D%20document.createElement%28%5C%22h4%5C%22%29%5Cn%20%20%5Cta.innerText%20%3D%20x.span%5B0%5D%20%3D%3D%20x.span%5B1%5D%20%3F%20%60Line%20%24%7Bx.span%5B0%5D%7D%60%20%3A%20%60Line%20%24%7Bx.span%5B0%5D%7D%20-%20%24%7Bx.span%5B1%5D%20-%201%7D%60%5Cn%20%20%5Ctblock.appendChild%28a%29%5Cn%20%20%5Ct%5Cn%20%20%5Ctlet%20b%20%3D%20document.createElement%28%5C%22pre%5C%22%29%5Cn%20%20%5Ctlet%20c%20%3D%20document.createElement%28%5C%22code%5C%22%29%5Cn%20%20%5Ctc.innerText%20%3D%20x.code.match%28/%5E%5C%5C%5C%5Cs*%24/%29%20%3F%20%5C%22%5BBLANK%20LINES%5D%5C%22%20%3A%20x.code%5Cn%20%20%5Ctb.appendChild%28c%29%5Cn%20%20%5Ctblock.appendChild%28b%29%5Cn%20%20%5Ct%5Cn%20%20%5Ctlet%20d%20%3D%20document.createElement%28%5C%22pre%5C%22%29%5Cn%20%20%5Ctlet%20e%20%3D%20document.createElement%28%5C%22code%5C%22%29%5Cn%20%20%5Ctd.classList.add%28%5C%22collapse%5C%22%29%5Cn%20%20%5Ctd.classList.add%28%5C%22closed%5C%22%29%5Cn%20%20%5Cte.innerText%20%3D%20x.text%5Cn%20%20%5Ctd.appendChild%28e%29%5Cn%20%20%5Ctblock.appendChild%28d%29%5Cn%20%20%5Ct%5Cn%20%20%5Ctlet%20visible%20%3D%20false%5Cn%20%20%5Ctlet%20height%20%3D%20getComputedStyle%28d%29.height%5Cn%20%20%5Ct%5Cn%5Ctb.addEventListener%28%27click%27%2C%20function%28%29%20%7B%5Cn%5Ct%5Ctvisible%20%3D%20%21visible%5Cn%5Ct%5Ctif%20%28visible%29%20%7B%5Cn%5Ct%5Ct%5Ctd.classList.remove%28%5C%22closed%5C%22%29%5Cn%5Ct%5Ct%5Ctd.style.height%20%3D%20height%5Cn%5Ct%5Ct%7D%20else%20%7B%5Cn%5Ct%5Ct%5Ctd.classList.add%28%5C%22closed%5C%22%29%5Cn%5Ct%5Ct%5Ctd.style.height%20%3D%20%5C%220px%5C%22%5Cn%5Ct%5Ct%7D%5Cn%5Ct%7D%29%5Cn%20%20%5Ct%5Cn%20%20%7D%29%5Cn%20%20%5Cn%20%20%5Cn%20%20%20%5Cn%20%20%5Cn%20%20%5Cn%20%20document.querySelectorAll%28%5C%22pre%20code%5C%22%29.forEach%28x%20%3D%3E%20%5Cn%20%20%5Cthljs.highlightBlock%28x%29%5Cn%20%20%29%5Cn%20%20%5Cn%3C/script%3E%5Cn%3C/body%3E%5Cn%3C/html%3E%5Cn%22%2C%22stdout%22%3A%22%22%2C%22stderr%22%3A%22D%3A/DevCpp6s/devcpp/MinGW64/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe%3AD%3A%5C%5CDevCpp6s%5C%5Cdevcpp%5C%5CGstudio%5C%5Chl.html%3A%20file%20format%20not%20recognized%3B%20treating%20as%20linker%20script%5Cr%5CnD%3A/DevCpp6s/devcpp/MinGW64/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe%3AD%3A%5C%5CDevCpp6s%5C%5Cdevcpp%5C%5CGstudio%5C%5Chl.html%3A1%3A%20syntax%20error%5Cr%5Cncollect2.exe%3A%20error%3A%20ld%20returned%201%20exit%20status%5Cn%22%2C%22filename%22%3A%22D%3A%5C%5CDevCpp6s%5C%5Cdevcpp%5C%5CGstudio%5C%5Chl.html%22%7D"))
+
+  document.querySelector("#title").innerText = content.filename
+
+ 
+  
+  let sourcelines = content.source.split("\n")
+  let index = 1
+  
+  
+  let errgroups = []
+  let errtext = content.stderr.split("\n")
+  errtext.forEach(line => {
+  	if (line.match("^((..[^:]+: In function)|(cc1(plus)?\.exe)|note:)")) {
+  		return;  //  discard	
+  	}
+  	if (line.match("^..[^:]+: In function")) {
+  		return;  //  discard	
+  	}
+  	let c = line.match("^(..[^:]+):(\\d+):(\\d+):(.*)")
+  	if (!c) {
+  		if (errgroups.length) {
+  	    	errgroups[errgroups.length - 1].text += line + "\n"
+  	    }
+  	    return;
+  	}
+  	if (c[1] != content.filename) {
+  		return;
+  	}
+  	let lnn = +c[2];
+  	let col = +c[3];
+  	let code = "";
+  	let start = index;
+    while (index <= lnn) {
+    	code += sourcelines[index - 1] + "\n"
+    	++index
+    }
+    errgroups.push({code: code, text: c[4] + "\n", span: [start, index]})
+  })
+  
+  
+  {
+  	let start = index
+  	let code = ""
+  	while (index <= sourcelines.length) {
+  	 	code += sourcelines[index - 1] + "\n"
+  	 	++index
+  	}
+  	errgroups.push({code: code, text: "", span: [start, index]})
+  }
+  
+  let block = document.querySelector("#block") 
+  errgroups.forEach(x => {
+  	let a = document.createElement("h4")
+  	a.innerText = x.span[0] == x.span[1] ? `Line ${x.span[0]}` : `Line ${x.span[0]} - ${x.span[1] - 1}`
+  	block.appendChild(a)
+  	
+  	let b = document.createElement("pre")
+  	let c = document.createElement("code")
+  	c.innerText = x.code.match(/^\\s*$/) ? "[BLANK LINES]" : x.code
+  	b.appendChild(c)
+  	block.appendChild(b)
+  	
+  	let d = document.createElement("pre")
+  	let e = document.createElement("code")
+  	d.classList.add("collapse")
+  	d.classList.add("closed")
+  	e.innerText = x.text
+  	d.appendChild(e)
+  	block.appendChild(d)
+  	
+  	let visible = false
+  	let height = getComputedStyle(d).height
+  	
+	b.addEventListener('click', function() {
+		visible = !visible
+		if (visible) {
+			d.classList.remove("closed")
+			d.style.height = height
+		} else {
+			d.classList.add("closed")
+			d.style.height = "0px"
+		}
+	})
+  	
+  })
+  
+  
+   
+  
+  
+  document.querySelectorAll("pre code").forEach(x => 
+  	hljs.highlightBlock(x)
+  )
+  
+</script>
+</body>
+</html>

@@ -2336,7 +2336,7 @@ begin
 
   // Misc.
   fUseSyn := TRUE;
-  fSynExt := 'c;cpp;h;hpp;cc;cxx;cp;hp;rh;fx;inl;tcc;win;;'; //last ; is for files with no extension
+  fSynExt := 'c;cpp;h;hpp;cc;cxx;cp;hp;rh;fx;inl;tcc;win;;rb;py;js;cs;java;html'; //last ; is for files with no extension
   fHighCurrLine := TRUE;
   fHighColor := $00FFCC66; // Light Turquoise
   fTabSize := 4;
@@ -2344,7 +2344,7 @@ begin
   // Display
   // Fontname
   fFont.name := 'DejaVuSansMono YaHei NF';
-  fFont.Size := 12;
+  fFont.Size := 10;
 
   // Display #2
   fShowGutter := TRUE;
@@ -2355,7 +2355,7 @@ begin
   fLeadZero := FALSE;
   // Fontname
   fGutterFont.Name := 'DejaVuSansMono YaHei NF';
-  fGutterFont.Size := 12;
+  fGutterFont.Size := 10;
   fGutterSize := 1;
 
   // Autosave

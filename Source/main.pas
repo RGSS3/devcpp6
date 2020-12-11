@@ -5969,6 +5969,7 @@ begin
   devData.First := FALSE;
   fCommandList := TStringList.Create;
   UpdateCommands;
+
 end;
 
 procedure TMainForm.EditorPageControlMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
@@ -6806,6 +6807,8 @@ begin
     SetEnvironmentVariable('devcpp.compiler.runparams', PAnsiChar(fCompiler.RunParams));
     SetEnvironmentVariable('devcpp.compiler.makefile', PAnsiChar(fCompiler.MakeFile));
     SetEnvironmentVariable('devcpp.compiler.p0', PAnsiChar(fCompiler.SourceFile));
+    if Assigned(fProject) then
+      SetEnvironmentVariable('devcpp.run.args', PAnsiChar(fProject.Options.CmdLineArgs));
     {*
       property Compiling: Boolean read GetCompiling;
       property Project: TProject read fProject write fProject;

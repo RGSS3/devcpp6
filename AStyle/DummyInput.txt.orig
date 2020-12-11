@@ -1,6 +1,15 @@
-#include <stdio.h>
+const fs = require('fs')
+const child_process = require('child_process')
+let fname = process.env['devcpp.file.name']
+let source = fs.readFileSync(fname).toString().replace(/\r\n/g, "\n")
+let newdir = fname + ".dir"
+try { fs.mkdirSync(newdir)  } catch (e) {}
 
-int main(void) {
-    puts(
-        "Hello world";
-}
+
+const compile_info  = child_process.spawnSync(process.env['devcpp.compiler.dir'] + '\\bin\\gcc.exe', [fname])
+const object_code = escape(JSON.stringify({code: source, stdout: compile_info.stdout.toString(), stderr: compile_info.stderr}.toString()))
+
+html = fs.readFileSync(__dirname + "/hl.html").toString()
+html = html.replace("<%ESCAPED_CONTENT%>", object_code)
+fs.writeFileSync(newdir + "/highlight.html", html)
+require('child_process').exec('start ' + newdir + "\\highlight.html")

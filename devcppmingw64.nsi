@@ -3,7 +3,7 @@
 
 !define COMPILERNAME "TDM-GCC 9.2"
 !define COMPILERFOLDER "MinGW64"
-!define DEVCPP_VERSION "6.0u"
+!define DEVCPP_VERSION "6.0g"
 !define FINALNAME "Dev-Cpp ${DEVCPP_VERSION} ${COMPILERNAME} Setup.exe"
 !define DISPLAY_NAME "Dev-C++ ${DEVCPP_VERSION}"
 
@@ -32,8 +32,8 @@ SetOverwrite try
 XPStyle on
 
 InstType "Full";1
-InstType "Minimal";2
-InstType "Safe";3
+#InstType "Minimal";2
+#InstType "Safe";3
 
 ####################################################################
 # Pages
@@ -58,8 +58,8 @@ InstType "Safe";3
 # Languages
 
 !insertmacro MUI_LANGUAGE "SimpChinese"
-!insertmacro MUI_LANGUAGE "TradChinese"
-!insertmacro MUI_LANGUAGE "English"
+#!insertmacro MUI_LANGUAGE "TradChinese"
+#!insertmacro MUI_LANGUAGE "English"
 
 
 ####################################################################
@@ -82,8 +82,6 @@ Section "Dev-C++ program files (required)" SectionMain
   File "devcpp.exe"
   ; File "devcppPortable.exe"
   File "devcpp.map"
-  File "packman.exe"
-  File "Packman.map"
   File "ConsolePauser.exe"
   File "devcpp.exe.manifest"
   File "copying.txt"
@@ -107,11 +105,13 @@ Section "Dev-C++ program files (required)" SectionMain
   Pop $0
   Delete DYNF.ttf
   DetailPrint `Return Code = $0`
-  
+
+  SetOutPath $INSTDIR  
+  File /nonfatal "Vendor.7z"
+  Nsis7z::ExtractWithDetails "Vendor.7z" "Installing %s..."
+  Delete "$OUTDIR\Vendor.7z"
   
   ; Write required paths
-  SetOutPath $INSTDIR\Lang
-  File /r "Lang\English.*"
   SetOutPath $INSTDIR\Templates
   File /r "Templates\*"
   SetOutPath $INSTDIR\Help
@@ -120,7 +120,6 @@ Section "Dev-C++ program files (required)" SectionMain
   File /r "AStyle\*"
   SetOutPath $INSTDIR\Photogram
   File /r "Photogram\*"
-  
 SectionEnd
 
 Section "Icon files" SectionIcons
@@ -140,7 +139,7 @@ Section "${COMPILERNAME} compiler" SectionMinGW
 SectionEnd
 
 Section "Language files" SectionLangs
-  SectionIn 1 3
+  SectionIn 1 2 3
   
   SetOutPath $INSTDIR\Lang
   File /nonfatal /r "Lang\*"
@@ -249,21 +248,6 @@ Section "Associate .devpak files to Dev-C++"
   Call RefreshShellIcons
 SectionEnd
 
-Section "Associate .devpackage files to Dev-C++"
-  SectionIn 1 3
-
-  StrCpy $0 ".devpackage"
-  Call BackupAssoc
-
-  StrCpy $0 $INSTDIR\DevCpp.exe
-  StrCpy $1 $INSTDIR\PackMan.exe
-  WriteRegStr HKCR ".devpackage" "" "DevCpp.devpackage"
-  WriteRegStr HKCR "DevCpp.devpackage" "" "Dev-C++ Package File"
-  WriteRegStr HKCR "DevCpp.devpackage\DefaultIcon" "" '$0,10'
-  WriteRegStr HKCR "DevCpp.devpackage\Shell\Open\Command" "" '$1 "%1"'
-  Call RefreshShellIcons
-SectionEnd
-
 Section "Associate .template files to Dev-C++"
   SectionIn 1 3
 
@@ -307,7 +291,7 @@ SectionEnd
 SubSectionEnd
 
 Section "Remove old configuration files" SectionConfig
-  SectionIn 1 3
+  SectionIn 1 2 3
 
   RMDir /r "$APPDATA\Dev-Cpp"
   
