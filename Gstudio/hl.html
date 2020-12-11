@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+<style>
+  code {
+      font-family:"DejaVuSansMono YaHei NF";
+      border-radius: 14px;
+      font-size: 10px;
+  }
+  
+  .maincode {
+      font-size: 14px; 
+  }
+  h2, h3, h4 {
+  	font-family:"Cambria Math", monospace;	
+  }
+  
+  .collapse {
+  	transition: all 1s ease;
+	visibility: visible;	
+	display: block;
+	overflow: hidden;
+  }
+  
+  .collapse.closed{
+  	transition: all 1s ease;
+	visibility: hidden;
+  }
+</style>
+<link rel="stylesheet"
+      href="http://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.1/build/styles/github.min.css">
+<script src="http://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.1/build/highlight.min.js"></script>
+</head>
+<body>
+
+<div style='margin: auto; max-width: 1000px;'>
+<h2 style='align: center;' id='title'> </h2>
+<div id='block'>
+</div>
+</div>
+
+<script>
+  hljs.configure({
+  	languages: ['c', 'cpp']
+  })
+  let content = JSON.parse(unescape("<%ESCAPED_CONTENT%>"))
+
+  document.querySelector("#title").innerText = content.filename   
+  let block = document.querySelector("#block") 
+  let start = -1
+  let save = ""
+  for (let i = 0; i < content.map.length - 1; ++i) {
+  	let x = content.map[i + 1]
+  	if (!x.tagged) {
+  		save += x.source + "\n"
+  		if (start == -1) {
+  			start = i
+  		}
+  		continue
+  	}
+  	
+    
+  	let a = document.createElement("h4")
+  	a.innerText = start != -1 ? `Line ${start + 1} - ${i + 1}` : `Line ${i + 1}`
+  	block.appendChild(a)
+  	
+  	let b = document.createElement("pre")
+  	let c = document.createElement("code")
+  	let src = save + x.source
+  	c.innerText = src.match(/^\\s*$/) ? "[BLANK LINES]" : src
+  	c.classList.add("c")
+  	c.classList.add("maincode")
+  	b.appendChild(c)
+  	block.appendChild(b)
+  	
+  	start = -1
+  	save = ""
+  	
+  	let d = document.createElement("pre")
+  	let e = document.createElement("code")
+  	d.classList.add("collapse")
+  	d.classList.add("closed")
+  	e.innerText = (x.info.compiler || []).concat(x.info.cppcheck || []).join("\n") 
+  	d.appendChild(e)
+  	block.appendChild(d)
+  	let visible = false
+  	let height = getComputedStyle(d).height
+  	d.style.height = "0px"
+  	
+	b.addEventListener('click', function() {
+		visible = !visible
+		if (visible) {
+			d.classList.remove("closed")
+			d.style.height = height
+		} else {
+			d.classList.add("closed")
+			d.style.height = "0px"
+		}
+	})
+  	
+  }
+  
+  document.querySelectorAll("pre code").forEach(x => 
+  	hljs.highlightBlock(x)
+  )
+  
+</script>
+</body>
+</html>

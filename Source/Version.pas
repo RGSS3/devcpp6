@@ -32,7 +32,7 @@ const
 
   // exe properties
   DEVCPP = 'Dev-C++';
-  DEVCPP_VERSION = '6.0u';
+  DEVCPP_VERSION = '6.0g';
 
   // delimiters
   DEV_INTERNAL_OPEN = '$__DEV_INTERNAL_OPEN';
@@ -115,7 +115,7 @@ const
   cBP = 'Breakpoints';
   cErr = 'Error line';
   cABP = 'Active breakpoints';
-  cGut = 'Gutter';
+  cGut = 'Gutter';             
   cSel = 'Selected text';
   cFld = 'Folding lines';
 

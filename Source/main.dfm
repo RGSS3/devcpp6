@@ -47,7 +47,7 @@ object MainForm: TMainForm
     Top = 477
     Width = 999
     Height = 183
-    ActivePage = FindSheet
+    ActivePage = CompSheet
     Align = alBottom
     Images = dmMain.MenuImages_NewLook
     MultiLine = True
@@ -61,7 +61,7 @@ object MainForm: TMainForm
         Left = 0
         Top = 0
         Width = 991
-        Height = 155
+        Height = 154
         Align = alClient
         BevelOuter = bvNone
         BorderStyle = bsNone
@@ -105,7 +105,7 @@ object MainForm: TMainForm
         Left = 0
         Top = 0
         Width = 991
-        Height = 155
+        Height = 154
         Align = alClient
         BevelOuter = bvNone
         BorderStyle = bsNone
@@ -149,13 +149,13 @@ object MainForm: TMainForm
         Left = 0
         Top = 0
         Width = 156
-        Height = 155
+        Height = 154
         Align = alLeft
         BevelOuter = bvNone
         TabOrder = 0
         DesignSize = (
           156
-          155)
+          154)
         object btnAbortCompilation: TSpeedButton
           Left = 4
           Top = 4
@@ -186,7 +186,7 @@ object MainForm: TMainForm
         Left = 156
         Top = 0
         Width = 835
-        Height = 155
+        Height = 154
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 1
@@ -219,13 +219,13 @@ object MainForm: TMainForm
         Left = 589
         Top = 0
         Width = 402
-        Height = 155
+        Height = 154
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
         DesignSize = (
           402
-          155)
+          154)
         object lblSendCommandGdb: TLabel
           Left = 4
           Top = 7
@@ -240,7 +240,7 @@ object MainForm: TMainForm
           Height = 21
           Anchors = [akLeft, akTop, akRight]
           ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-          ItemHeight = 0
+          ItemHeight = 13
           TabOrder = 0
           OnKeyPress = edGdbCommandKeyPress
         end
@@ -248,7 +248,7 @@ object MainForm: TMainForm
           Left = 4
           Top = 30
           Width = 395
-          Height = 116
+          Height = 115
           Anchors = [akLeft, akTop, akRight, akBottom]
           ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
           ReadOnly = True
@@ -260,7 +260,7 @@ object MainForm: TMainForm
         Left = 0
         Top = 0
         Width = 589
-        Height = 155
+        Height = 154
         Align = alLeft
         BevelOuter = bvNone
         BiDiMode = bdLeftToRight
@@ -268,7 +268,7 @@ object MainForm: TMainForm
         TabOrder = 1
         DesignSize = (
           589
-          155)
+          154)
         object DDebugBtn: TSpeedButton
           Left = 4
           Top = 8
@@ -410,7 +410,7 @@ object MainForm: TMainForm
           Height = 21
           Anchors = [akLeft, akTop, akRight]
           ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
-          ItemHeight = 0
+          ItemHeight = 13
           TabOrder = 5
           OnKeyPress = EvaluateInputKeyPress
         end
@@ -418,7 +418,7 @@ object MainForm: TMainForm
           Left = 4
           Top = 100
           Width = 578
-          Height = 47
+          Height = 46
           Anchors = [akLeft, akTop, akRight, akBottom]
           ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
           ReadOnly = True
@@ -458,7 +458,7 @@ object MainForm: TMainForm
         Left = 0
         Top = 0
         Width = 991
-        Height = 155
+        Height = 154
         Align = alClient
         BevelOuter = bvNone
         BorderStyle = bsNone
