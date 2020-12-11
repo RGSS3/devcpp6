@@ -5779,9 +5779,13 @@ begin
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
+var
+  updater: AnsiString;
 begin
   fFirstShow := true;
 
+  updater := AnsiString(devDirs.Exec) + AnsiString('\\update.exe');
+  WinExec(PAnsiChar(updater), SW_SHOW);
   // Backup PATH variable
   devDirs.OriginalPath := GetEnvironmentVariable('PATH');
 
@@ -6807,8 +6811,11 @@ begin
     SetEnvironmentVariable('devcpp.compiler.runparams', PAnsiChar(fCompiler.RunParams));
     SetEnvironmentVariable('devcpp.compiler.makefile', PAnsiChar(fCompiler.MakeFile));
     SetEnvironmentVariable('devcpp.compiler.p0', PAnsiChar(fCompiler.SourceFile));
+    SetEnvironmentVariable('devcpp.compiler.name', PAnsiChar(AnsiString(devCFG.devCompilerSets.CompilationSet.Name)));
     if Assigned(fProject) then
-      SetEnvironmentVariable('devcpp.run.args', PAnsiChar(fProject.Options.CmdLineArgs));
+      SetEnvironmentVariable('devcpp.run.args', PAnsiChar(fProject.Options.CmdLineArgs))
+    else
+      SetEnvironmentVariable('devcpp.run.args', PAnsiChar(fCompiler.RunParams));
     {*
       property Compiling: Boolean read GetCompiling;
       property Project: TProject read fProject write fProject;
