@@ -53,3 +53,5 @@ MinGW64
 # Delphi history and backups
 __history/
 *.~*
+!ICSharpCode.SharpZipLib.dll
+
