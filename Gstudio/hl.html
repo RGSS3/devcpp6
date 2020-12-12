@@ -49,10 +49,10 @@
   let block = document.querySelector("#block") 
   let start = -1
   let save = ""
+  let rendered = hljs.highlight("c", content.source).value.replace(/\r\n/, "\n").split("\n")
   for (let i = 0; i < content.map.length - 1; ++i) {
   	let x = content.map[i + 1]
   	if (!x.tagged) {
-  		save += x.source + "\n"
   		if (start == -1) {
   			start = i
   		}
@@ -60,15 +60,24 @@
   	}
   	
     
+    
+    
+    
   	let a = document.createElement("h4")
   	a.innerText = start != -1 ? `Line ${start + 1} - ${i + 1}` : `Line ${i + 1}`
   	block.appendChild(a)
   	
+  	let html = []
+  	for (let j = start == -1 ? i : start; j < i + 1; ++j) {
+  		html.push(rendered[j])
+  	}
+  	
   	let b = document.createElement("pre")
   	let c = document.createElement("code")
-  	let src = save + x.source
-  	c.innerText = src.match(/^\\s*$/) ? "[BLANK LINES]" : src
+  	let src = x.source
+  	c.innerHTML = html.join("\n")
   	c.classList.add("c")
+  	c.classList.add("hljs")
   	c.classList.add("maincode")
   	b.appendChild(c)
   	block.appendChild(b)

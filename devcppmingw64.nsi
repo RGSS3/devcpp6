@@ -87,6 +87,9 @@ Section "Dev-C++ program files (required)" SectionMain
   File "copying.txt"
   File "NEWS.txt"
   File "busybox.exe"
+  File "Update.exe"
+  File "ICSharpCode.SharpZipLib.dll"
+  File version
   File DYNF.ttf
   ;File "DejaVuSansMono YaHei NF.ttf"
   ;StrCpy $0 "$INSTDIR\DejaVuSansMono YaHei NF.ttf"
@@ -120,6 +123,10 @@ Section "Dev-C++ program files (required)" SectionMain
   File /r "AStyle\*"
   SetOutPath $INSTDIR\Photogram
   File /r "Photogram\*"
+  SetOutPath $INSTDIR\Gstudio
+  File /r "Gstudio\*"
+  SetOutPath $INSTDIR\Build
+  File /r "Build\empty.txt"
 SectionEnd
 
 Section "Icon files" SectionIcons

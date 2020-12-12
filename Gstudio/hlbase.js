@@ -4,7 +4,7 @@ module.exports.highlight = function(opt) {
 	let {compile_args: compile_args, open_page: open_page, open_page_on_fail: open_page_on_fail} = opt
 	const child_process = require('child_process')
 	let fname = process.env['devcpp.file.name']
-	let source = fs.readFileSync(fname).toString()//.replace(/\r\n/g, "\n")
+	let source = fs.readFileSync(fname).toString().replace(/\n/g, "\r\n").replace(/\r+/, "\r")
 	let newdir = fname + ".dir"
 	try { fs.mkdirSync(newdir)  } catch (e) {}
 	const sourcelines = source.split("\n")

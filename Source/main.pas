@@ -796,7 +796,7 @@ type
     procedure actOpenBashExecute(Sender: TObject);
     procedure actOpenExplorerExecute(Sender: TObject);
     procedure actRefreshExecute(Sender: TObject);
-    procedure LoadMenu(path : AnsiString);
+    procedure LoadMenu(path : AnsiString; var cur : Longint);
   private
     fPreviousHeight: integer; // stores MessageControl height to be able to restore to previous height
     fTools: TToolController; // tool list controller
@@ -6745,7 +6745,7 @@ begin
     SetEnvironmentVariable('PATH', PAnsiChar(path));
 end;
 
-procedure TMainForm.LoadMenu(path : AnsiString);
+procedure TMainForm.LoadMenu(path : AnsiString; var cur : Longint);
 var
    strList : TStringList;
    i : Longint;
@@ -6760,13 +6760,14 @@ begin
        if (length(trim(strList[i])) = 0) or (strList[i][1] = '#') then begin
            // Do nothing
        end else if strList[i][1] = '<' then begin
-           LoadMenu(trim(copy(strList[i], 2, length(strList[i]) - 1)));
+           LoadMenu(trim(copy(strList[i], 2, length(strList[i]) - 1)), cur);
        end else if strList[i][1] = '-' then begin
          menu := TMenuItem.Create(Self);
          menu.Caption := '-';
          menu.Enabled := False;
          System1.Add(menu);
        end else begin
+         inc(cur);
          p := Pos('=:=', strList[i]);
          cap := Trim(copy(strList[i], 1, p - 1));
          func := Trim(copy(strList[i], p + 3, length(strList[i])));
@@ -6776,6 +6777,10 @@ begin
          menu.Tag     := fCommandList.Count - 1;
          menu.AutoHotkeys := maManual;
          menu.OnClick := CommandClick;
+         if cur < 10 then
+             menu.ShortCut := 24624 + cur
+         else if cur - 10 <= 25 then
+             menu.ShortCut := 24642 + (cur - 10);
          System1.Add(menu);
        end;
    end;
@@ -6785,12 +6790,14 @@ end;
 procedure TMainForm.UpdateCommands;
 var
    i : Longint;
+   cur : Longint;
 begin
    for i := System1.Count - 1 downto 6 do begin
       System1.Items[i].Free;
       fCommandList.Clear;
    end;
-   LoadMenu('\photogram\commands.txt');
+   cur := 0;
+   LoadMenu('\photogram\commands.txt', cur);
 end;
 
 procedure TMainForm.CommandClick(Sender: TObject);
