@@ -10,7 +10,7 @@ namespace Update
 {
     public class UpdateLite
     {
-        private string downloadPath = System.Environment.GetEnvironmentVariable("TEMP") + @"\devcpp.zip";
+        private string downloadPath = Path.GetTempPath() + "devcpp.zip";
 
         public WebClient webClient = new WebClient();
 
@@ -23,7 +23,7 @@ namespace Update
             Stream stream = resp.GetResponseStream();
 
             try { using (StreamReader reader = new StreamReader(stream)) { result = reader.ReadToEnd(); } }
-            finally { stream.Close(); }
+            finally { result = "601"; stream.Close(); }
 
             return result;
         }

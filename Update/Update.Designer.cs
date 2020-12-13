@@ -40,7 +40,6 @@ namespace Update
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(218, 26);
             this.progressBar.TabIndex = 0;
-            this.progressBar.Click += new System.EventHandler(this.progressBar_Click);
             // 
             // Update
             // 
@@ -54,7 +53,7 @@ namespace Update
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Update";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DEV C++ 更新程序";
             this.Load += new System.EventHandler(this.Update_Load);
             this.ResumeLayout(false);
