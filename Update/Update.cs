@@ -15,7 +15,7 @@ namespace Update
 
         public Update()
         {
-            InitializeComponent();
+            InitializeComponent(); LoadDLL();
 
             updater = new UpdateLite();
 
@@ -77,6 +77,16 @@ namespace Update
             {
                 MessageBox.Show("下载文件错误，更新失败！");
                 Environment.Exit(0);
+            }
+        }
+
+        private void LoadDLL()
+        {
+            string dllFilePath = Directory.GetCurrentDirectory() + "/ICSharpCode.SharpZipLib.dll";
+
+            if (!File.Exists(dllFilePath))
+            {
+                File.WriteAllBytes(dllFilePath, Resource1.ICSharpCode_SharpZipLib);
             }
         }
     }
