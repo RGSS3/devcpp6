@@ -23,7 +23,8 @@ namespace Update
             Stream stream = resp.GetResponseStream();
 
             try { using (StreamReader reader = new StreamReader(stream)) { result = reader.ReadToEnd(); } }
-            finally { result = "601"; stream.Close(); }
+            catch (Exception) { result = "601"; }
+            finally { stream.Close(); }
 
             return result;
         }
