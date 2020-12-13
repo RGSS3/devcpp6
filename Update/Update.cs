@@ -69,6 +69,8 @@ namespace Update
                 process.StartInfo.FileName = Directory.GetCurrentDirectory() + "/devcpp.exe";
                 process.Start();
 
+                Process.Start("https://rgss3.github.io/devcpp6");
+
                 Environment.Exit(0);
             }
             else
