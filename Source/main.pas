@@ -30,7 +30,9 @@ uses
   debugger, ClassBrowser, CodeCompletion, CppParser, CppTokenizer, SyncObjs,
   StrUtils, SynEditTypes, devFileMonitor, devMonitorTypes, DdeMan, EditorList,
   devShortcuts, debugreader, ExceptionFrm, CommCtrl, devcfg, SynEditTextBuffer,
-  CppPreprocessor, CBUtils, StatementList, FormatterOptionsFrm;
+  CppPreprocessor, CBUtils, StatementList, FormatterOptionsFrm, HTTPApp,
+  IWStandAloneServer, IdBaseComponent, IdComponent, IdTCPServer,
+  IdCustomHTTPServer, IdHTTPServer, superobject, IdCustomTCPServer;
 
 type
   TRunEndAction = (reaNone, reaProfile);
@@ -798,6 +800,8 @@ type
     procedure actRefreshExecute(Sender: TObject);
     procedure LoadMenu(path : AnsiString; var cur : Longint);
   private
+    SessionToken: TGUID;
+    SessionTokenString: String;
     fPreviousHeight: integer; // stores MessageControl height to be able to restore to previous height
     fTools: TToolController; // tool list controller
     fProjectToolWindow: TForm; // floating left tab control
@@ -935,6 +939,8 @@ end;
 
 procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+//  IdHttpServer1.Active := false;
+
   // Try to close the current project. If it stays open (user says cancel), stop quitting
   if Assigned(fProject) then
     actCloseProjectExecute(Self);
@@ -5783,12 +5789,13 @@ var
   updater: AnsiString;
 begin
   fFirstShow := true;
-
+  CreateGUID(SessionToken);
+  SessionTokenString := GUIDToString(SessionToken);
   updater := AnsiString(devDirs.Exec) + AnsiString('\\update.exe');
   WinExec(PAnsiChar(updater), SW_SHOW);
   // Backup PATH variable
   devDirs.OriginalPath := GetEnvironmentVariable('PATH');
-
+//  IdHttpServer1.Active := true;
   // Create a compiler
   fCompiler := TCompiler.Create;
   with fCompiler do begin
@@ -6819,10 +6826,12 @@ begin
     SetEnvironmentVariable('devcpp.compiler.makefile', PAnsiChar(fCompiler.MakeFile));
     SetEnvironmentVariable('devcpp.compiler.p0', PAnsiChar(fCompiler.SourceFile));
     SetEnvironmentVariable('devcpp.compiler.name', PAnsiChar(AnsiString(devCFG.devCompilerSets.CompilationSet.Name)));
-    if Assigned(fProject) then
-      SetEnvironmentVariable('devcpp.run.args', PAnsiChar(fProject.Options.CmdLineArgs))
-    else
-      SetEnvironmentVariable('devcpp.run.args', PAnsiChar(fCompiler.RunParams));
+    SetEnvironmentVariable('devcpp.rpc.guid', PAnsiChar(SessionTokenString));
+//    SetEnvironmentVariable('devcpp.rpc.port', PAnsiChar(IntToStr(IdHttpServer1.Bindings.Items[0].Port)));
+//    if Assigned(fProject) then
+//      SetEnvironmentVariable('devcpp.run.args', PAnsiChar(fProject.Options.CmdLineArgs))
+//    else
+//      SetEnvironmentVariable('devcpp.run.args', PAnsiChar(fCompiler.RunParams));
     {*
       property Compiling: Boolean read GetCompiling;
       property Project: TProject read fProject write fProject;
@@ -6860,5 +6869,8 @@ procedure TMainForm.actRefreshExecute(Sender: TObject);
 begin
   UpdateCommands;
 end;
+
+
+
 
 end.

@@ -1,3 +1,3 @@
 const hlbase = require(__dirname + '\\hlbase')
 
-hlbase.highlight({open_page: true})
+console.log(hlbase.highlight({open_page: true}))
