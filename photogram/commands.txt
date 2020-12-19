@@ -15,3 +15,4 @@
 # 空行也是被忽略的
 View=:=%devcpp.dir%\Vendor\node\node %devcpp.dir%\Gstudio\highlight.js & pause
 SDL2 Base Runtime=:=%devcpp.dir%\Vendor\node\node %devcpp.dir%\Gstudio\SDL2-Base.js & pause
+x=:=cmd

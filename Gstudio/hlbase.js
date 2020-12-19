@@ -93,7 +93,7 @@ module.exports.highlight = function(opt) {
 	html = html.replace("<%ESCAPED_CONTENT%>", object_code)
 	fs.writeFileSync(newdir + "/highlight.html", html)
 	if (open_page) {
-		require('child_process').exec('start ' + newdir + "\\highlight.html")
+		require('child_process').exec('start "" "' + newdir + '\\highlight.html"')
 	}
 	return compile_info
 }
