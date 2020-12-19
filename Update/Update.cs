@@ -11,6 +11,8 @@ namespace Update
     {
         const string baseUrl = "https://cdn.jsdelivr.net/gh/RGSS3/devcpp6/";
 
+        private string downloadUrl = "";
+
         UpdateLite updater; bool fullUpdate = false;
 
         public Update()
@@ -25,6 +27,8 @@ namespace Update
             int lasterVersion = int.Parse(updater.GetVersion(baseUrl + "version"));
             int currentVersion = int.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + "/version"));
 
+            downloadUrl = updater.GetUrlInfo(baseUrl + "/UpdateInfo/donwload_url");
+
             if (lasterVersion - currentVersion > 0)
             {
                 if (DialogResult.Yes == MessageBox.Show("检查到新版本，是否更新？", "更新", MessageBoxButtons.YesNo))
@@ -34,9 +38,9 @@ namespace Update
                     if (lasterVersion - currentVersion >= 2)
                     {
                         fullUpdate = true;
-                        updater.Download(baseUrl + "Build/devcpp.zip", DownloadProgressCallback, DownloadCompletedCallback);
+                        updater.Download(downloadUrl + "devcpp.zip", DownloadProgressCallback, DownloadCompletedCallback);
                     }
-                    else updater.Download(baseUrl + "Build/devcpp_i.zip", DownloadProgressCallback, DownloadCompletedCallback);
+                    else updater.Download(downloadUrl + "devcpp_i.zip", DownloadProgressCallback, DownloadCompletedCallback);
                 }
             }
 
@@ -57,8 +61,8 @@ namespace Update
 
             string md5Url = "";
 
-            if (fullUpdate) md5Url = updater.GetVersion(baseUrl + "/Build/md5");
-            else md5Url = updater.GetVersion(baseUrl + "/Build/md5_i");
+            if (fullUpdate) md5Url = updater.GetVersion(baseUrl + "/UpdateInfo/md5");
+            else md5Url = updater.GetVersion(baseUrl + "/UpdateInfo/md5_i");
 
             if (updater.CheckMD5(md5Url))
             {
@@ -69,7 +73,7 @@ namespace Update
                 process.StartInfo.FileName = Directory.GetCurrentDirectory() + "/devcpp.exe";
                 process.Start();
 
-                Process.Start("https://rgss3.github.io/devcpp6");
+                Process.Start("https://devcpp6.com");
 
                 Environment.Exit(0);
             }

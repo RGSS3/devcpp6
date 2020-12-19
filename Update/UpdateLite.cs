@@ -14,7 +14,7 @@ namespace Update
 
         public WebClient webClient = new WebClient();
 
-        public string GetVersion(string url)
+        public string GetUrlInfo(string url)
         {
             string result = "";
 
@@ -23,8 +23,16 @@ namespace Update
             Stream stream = resp.GetResponseStream();
 
             try { using (StreamReader reader = new StreamReader(stream)) { result = reader.ReadToEnd(); } }
-            catch (Exception) { result = "601"; }
             finally { stream.Close(); }
+
+            return result;
+        }
+
+        public string GetVersion(string url)
+        {
+            string result = GetUrlInfo(url);
+
+            if (string.IsNullOrEmpty(result)) result = "601";
 
             return result;
         }
