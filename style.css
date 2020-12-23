@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou");
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #b86800;
+    margin: 0;
+    overflow: hidden;
+    font-family: "ZCOOL QingKe HuangYou";
+}
+
+.box {
+    position: relative;
+    overflow: hidden;
+}
+
+.info {
+    position: relative;
+    margin: 100px auto;
+    width: 318px;
+    justify-content: space-between;
+    display: flex;
+}
+
+.info p {
+    color: #fefefe;
+    margin: 10px;
+    font-size: 60px;
+    opacity: 0.8;
+}
