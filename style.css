@@ -34,3 +34,12 @@ body {
     font-size: 60px;
     opacity: 0.8;
 }
+
+.box a {
+    position: relative;
+    color: #111111;
+    margin: auto;
+    width: 100px;
+    opacity: 0.8;
+    display: flex;
+}
