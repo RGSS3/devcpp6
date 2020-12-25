@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Update
 {
@@ -60,7 +61,7 @@ namespace Update
 
             if (fileMD5 == md5)
             {
-                (new FastZip()).ExtractZip(downloadPath, Directory.GetCurrentDirectory(), "");
+                (new FastZip()).ExtractZip(downloadPath, Application.StartupPath, "");
                 return true;
             }
             else return false;

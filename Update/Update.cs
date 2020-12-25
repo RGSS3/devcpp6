@@ -21,11 +21,11 @@ namespace Update
 
             updater = new UpdateLite();
 
-            if (!File.Exists(Directory.GetCurrentDirectory() + "/version"))
-                File.WriteAllText(Directory.GetCurrentDirectory() + "/version", "601");
+            if (!File.Exists(Application.StartupPath + "/version"))
+                File.WriteAllText(Application.StartupPath + "/version", "601");
 
             int lasterVersion = int.Parse(updater.GetVersion(baseUrl + "version"));
-            int currentVersion = int.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + "/version"));
+            int currentVersion = int.Parse(File.ReadAllText(Application.StartupPath + "/version"));
 
             downloadUrl = updater.GetUrlInfo(baseUrl + "/UpdateInfo/donwload_url");
 
@@ -70,7 +70,7 @@ namespace Update
 
                 Process process = new Process();
                 process.StartInfo.UseShellExecute = false;
-                process.StartInfo.FileName = Directory.GetCurrentDirectory() + "/devcpp.exe";
+                process.StartInfo.FileName = Application.StartupPath + "/devcpp.exe";
                 process.Start();
 
                 Process.Start("https://devcpp6.com");
@@ -86,7 +86,7 @@ namespace Update
 
         private void LoadDLL()
         {
-            string dllFilePath = Directory.GetCurrentDirectory() + "/ICSharpCode.SharpZipLib.dll";
+            string dllFilePath = Application.StartupPath + "/ICSharpCode.SharpZipLib.dll";
 
             if (!File.Exists(dllFilePath))
             {
