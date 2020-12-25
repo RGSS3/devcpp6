@@ -7,7 +7,9 @@
       border-radius: 14px;
       font-size: 10px;
   }
-  
+  pre {
+  	margin: 0.1em 0;	
+  }
   .maincode {
       font-size: 14px; 
   }
@@ -20,6 +22,7 @@
 	visibility: visible;	
 	display: block;
 	overflow: hidden;
+	padding: 10px;
   }
   
   .collapse.closed{
@@ -50,64 +53,112 @@
   let start = -1
   let save = ""
   let rendered = hljs.highlight("c", content.source).value.replace(/\r\n/, "\n").split("\n")
-  for (let i = 0; i < content.map.length - 1; ++i) {
-  	let x = content.map[i + 1]
-  	if (!x.tagged) {
-  		if (start == -1) {
-  			start = i
-  		}
-  		continue
-  	}
-  	
-    
-    
-    
-    
-  	let a = document.createElement("h4")
-  	a.innerText = start != -1 ? `Line ${start + 1} - ${i + 1}` : `Line ${i + 1}`
-  	block.appendChild(a)
-  	
-  	let html = []
-  	for (let j = start == -1 ? i : start; j < i + 1; ++j) {
-  		html.push(rendered[j])
-  	}
-  	
-  	let b = document.createElement("pre")
-  	let c = document.createElement("code")
-  	let src = x.source
-  	c.innerHTML = html.join("\n")
-  	c.classList.add("c")
-  	c.classList.add("hljs")
-  	c.classList.add("maincode")
-  	b.appendChild(c)
-  	block.appendChild(b)
-  	
-  	start = -1
-  	save = ""
-  	
-  	let d = document.createElement("pre")
-  	let e = document.createElement("code")
-  	d.classList.add("collapse")
-  	d.classList.add("closed")
-  	e.innerText = (x.info.compiler || []).concat(x.info.cppcheck || []).join("\n") 
-  	d.appendChild(e)
-  	block.appendChild(d)
-  	let visible = false
-  	let height = getComputedStyle(d).height
-  	d.style.height = "0px"
-  	
-	b.addEventListener('click', function() {
-		visible = !visible
-		if (visible) {
-			d.classList.remove("closed")
-			d.style.height = height
-		} else {
-			d.classList.add("closed")
-			d.style.height = "0px"
-		}
-	})
-  	
+  
+  if (content.output) {
+  	    for (let x of content.output) {
+  	    	
+  	    		/* 
+  	    		let a = document.createElement("h4")
+	  			a.innerText = `Line ${x[0]}`
+	  			block.appendChild(a)
+	  			*/
+	          	let b = document.createElement("pre")
+	  			let c = document.createElement("code")
+	  			let src = x.source
+	  			c.innerHTML = x[1]
+	  			b.appendChild(c)
+	  			block.appendChild(b)
+	  			
+	  			let d = document.createElement("pre")
+			  	let e = document.createElement("code")
+			  	d.classList.add("collapse")
+			  	d.classList.add("closed")
+			  	d.classList.add("c")
+	  			d.classList.add("hljs")
+	  			d.classList.add("maincode")
+			  	e.innerHTML = rendered[x[0] - 1]
+			  	d.appendChild(e)
+			  	block.appendChild(d)
+			  	let visible = false
+			  	let height = getComputedStyle(d).height
+			  	d.style.height = "0px"
+			  	
+				b.addEventListener('click', function() {
+					visible = !visible
+					if (visible) {
+						d.classList.remove("closed")
+						d.style.height = height
+					} else {
+						d.classList.add("closed")
+						d.style.height = "0px"
+					}
+				})
+	  	
+	  	  }	
   }
+  if (content.map) {
+	  
+	  
+	  
+	  for (let i = 0; i < content.map.length - 1; ++i) {
+	  	let x = content.map[i + 1]
+	  	if (!x.tagged) {
+	  		if (start == -1) {
+	  			start = i
+	  		}
+	  		continue
+	  	}
+	  	
+	    
+	    
+	    
+	    
+	  	let a = document.createElement("h4")
+	  	a.innerText = start != -1 ? `Line ${start + 1} - ${i + 1}` : `Line ${i + 1}`
+	  	block.appendChild(a)
+	  	
+	  	let html = []
+	  	for (let j = start == -1 ? i : start; j < i + 1; ++j) {
+	  		html.push(rendered[j])
+	  	}
+	  	
+	  	let b = document.createElement("pre")
+	  	let c = document.createElement("code")
+	  	let src = x.source
+	  	c.innerHTML = html.join("\n")
+	  	c.classList.add("c")
+	  	c.classList.add("hljs")
+	  	c.classList.add("maincode")
+	  	b.appendChild(c)
+	  	block.appendChild(b)
+	  	
+	  	start = -1
+	  	save = ""
+	  	
+	  	let d = document.createElement("pre")
+	  	let e = document.createElement("code")
+	  	d.classList.add("collapse")
+	  	d.classList.add("closed")
+	  	e.innerText = (x.info.compiler || []).concat(x.info.cppcheck || []).join("\n") 
+	  	d.appendChild(e)
+	  	block.appendChild(d)
+	  	let visible = false
+	  	let height = getComputedStyle(d).height
+	  	d.style.height = "0px"
+	  	
+		b.addEventListener('click', function() {
+			visible = !visible
+			if (visible) {
+				d.classList.remove("closed")
+				d.style.height = height
+			} else {
+				d.classList.add("closed")
+				d.style.height = "0px"
+			}
+		})
+	  	
+	  }
+	}	
   
   document.querySelectorAll("pre code").forEach(x => 
   	hljs.highlightBlock(x)
