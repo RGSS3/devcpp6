@@ -13,7 +13,7 @@ namespace Update
 
         private string downloadUrl = "";
 
-        UpdateLite updater; bool fullUpdate = false;
+        UpdateLite updater; bool fullUpdate = false; int lasterVersion;
 
         public Update()
         {
@@ -24,10 +24,10 @@ namespace Update
             if (!File.Exists(Application.StartupPath + "/version"))
                 File.WriteAllText(Application.StartupPath + "/version", "601");
 
-            int lasterVersion = int.Parse(updater.GetVersion(baseUrl + "version"));
+            lasterVersion = int.Parse(updater.GetVersion(baseUrl + "version"));
             int currentVersion = int.Parse(File.ReadAllText(Application.StartupPath + "/version"));
 
-            downloadUrl = updater.GetUrlInfo(baseUrl + "/UpdateInfo/donwload_url");
+            downloadUrl = updater.GetUrlInfo(baseUrl + "UpdateInfo/donwload_url");
 
             if (lasterVersion - currentVersion > 0)
             {
@@ -43,8 +43,7 @@ namespace Update
                     else updater.Download(downloadUrl + "devcpp_i.zip", DownloadProgressCallback, DownloadCompletedCallback);
                 }
             }
-
-            Environment.Exit(0);
+            else Environment.Exit(0);
         }
 
         private void Update_Load(object sender, EventArgs e) { }
@@ -61,11 +60,13 @@ namespace Update
 
             string md5Url = "";
 
-            if (fullUpdate) md5Url = updater.GetVersion(baseUrl + "/UpdateInfo/md5");
-            else md5Url = updater.GetVersion(baseUrl + "/UpdateInfo/md5_i");
+            if (fullUpdate) md5Url = updater.GetVersion(baseUrl + "UpdateInfo/md5");
+            else md5Url = updater.GetVersion(baseUrl + "UpdateInfo/md5_i");
 
             if (updater.CheckMD5(md5Url))
             {
+                File.WriteAllText(Application.StartupPath + "/version", lasterVersion.ToString());
+
                 Thread.Sleep(300); Application.DoEvents();
 
                 Process process = new Process();
