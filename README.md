@@ -1,10 +1,11 @@
 Authors
 ====================
-* RGSS3
-* devcpp6
-* hyrious
+* [RGSS3](https://github.com/RGSS3)
+* [devcpp6](https://github.com/devcpp6)
+* [hyrious](https://github.com/hyrious)
 
 
 Sponsors
 ===================
-* 津津
+* Enter
+* [gjz010](https://github.com/gjz010)
